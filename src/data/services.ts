@@ -1,0 +1,165 @@
+export interface ServiceItem {
+  name: string;
+  slug: string;
+  category: string;
+  description: string;
+  icon: string;
+  items: string[];
+}
+
+export const needs: { id: string; title: string; description: string; icon: string }[] = [
+  {
+    id: '01',
+    title: 'Seguridad',
+    description: 'Protege la información y reduce los riesgos tecnológicos.',
+    icon: 'ShieldCheck',
+  },
+  {
+    id: '02',
+    title: 'Infraestructura',
+    description: 'Construye una infraestructura estable y preparada para crecer.',
+    icon: 'Server',
+  },
+  {
+    id: '03',
+    title: 'Redes',
+    description: 'Conecta tus equipos, usuarios y sistemas de forma segura.',
+    icon: 'Network',
+  },
+  {
+    id: '04',
+    title: 'Seguridad electrónica',
+    description: 'Controla y protege tus instalaciones mediante tecnología CCTV.',
+    icon: 'Cctv',
+  },
+  {
+    id: '05',
+    title: 'Software',
+    description: 'Automatiza procesos y desarrolla soluciones adaptadas a tu empresa.',
+    icon: 'Code2',
+  },
+  {
+    id: '06',
+    title: 'Consultoría',
+    description: 'Obtén una visión profesional para tomar mejores decisiones tecnológicas.',
+    icon: 'Brain',
+  },
+];
+
+export const services: ServiceItem[] = [
+  {
+    name: 'Ciberseguridad',
+    slug: 'ciberseguridad',
+    category: 'Seguridad',
+    description: 'Protección integral de la información y gestión de riesgos tecnológicos.',
+    icon: 'ShieldCheck',
+    items: [
+      'Diagnóstico de seguridad de la información',
+      'Análisis de riesgos',
+      'Evaluación de vulnerabilidades',
+      'Implementación de controles de seguridad',
+      'Seguridad de redes',
+      'Gestión de usuarios y permisos',
+      'MFA',
+      'Copias de seguridad',
+      'Seguridad de servidores',
+      'Políticas y procedimientos de seguridad',
+      'Auditorías y acompañamiento',
+      'ISO 27001 / ISO 27002',
+      'ISO 31000',
+      'Planes de continuidad',
+      'Gestión de incidentes',
+    ],
+  },
+  {
+    name: 'Infraestructura TI',
+    slug: 'infraestructura-ti',
+    category: 'Infraestructura',
+    description: 'Servidores, virtualización y plataformas empresariales estables.',
+    icon: 'Server',
+    items: [
+      'Instalación de servidores',
+      'Configuración',
+      'Migración',
+      'Virtualización',
+      'VMware',
+      'Windows Server',
+      'Linux',
+      'Active Directory',
+      'Servicios de red',
+    ],
+  },
+  {
+    name: 'Redes Empresariales',
+    slug: 'redes-empresariales',
+    category: 'Redes',
+    description: 'Diseño e implementación de redes seguras y escalables.',
+    icon: 'Network',
+    items: [
+      'Diseño de redes empresariales',
+      'Switches',
+      'Routers',
+      'VLAN',
+      'Wi-Fi empresarial',
+      'Firewall',
+      'VPN',
+      'Segmentación de red',
+    ],
+  },
+  {
+    name: 'Seguridad Electrónica Empresarial',
+    slug: 'seguridad-electronica',
+    category: 'CCTV',
+    description: 'Sistemas de videovigilancia y control de instalaciones.',
+    icon: 'Cctv',
+    items: [
+      'Diseño de sistemas CCTV',
+      'Instalación de cámaras IP',
+      'Configuración NVR/DVR',
+      'Acceso remoto',
+      'Almacenamiento',
+      'Cámaras para empresas',
+      'Control y monitoreo',
+      'Integración con redes',
+      'Mantenimiento de sistemas existentes',
+    ],
+  },
+  {
+    name: 'Desarrollo de Software',
+    slug: 'desarrollo-software',
+    category: 'Software',
+    description: 'Soluciones a medida para automatizar y optimizar procesos.',
+    icon: 'Code2',
+    items: [
+      'Sistemas de inventario',
+      'Control de activos',
+      'Gestión de clientes',
+      'Automatización de procesos',
+      'Aplicaciones web',
+      'Formularios empresariales',
+      'Reportes',
+      'Integración con bases de datos',
+      'Automatización de tareas',
+      'Sistemas internos',
+    ],
+  },
+  {
+    name: 'Consultoría Empresarial TI',
+    slug: 'consultoria-ti',
+    category: 'Consultoría',
+    description: 'Estrategia tecnológica para tomar mejores decisiones.',
+    icon: 'Brain',
+    items: [
+      'Diagnóstico tecnológico',
+      'Planeación de infraestructura',
+      'Evaluación de proveedores',
+      'Inventario de activos TI',
+      'Análisis de riesgos',
+      'Políticas de seguridad',
+      'Planes de renovación tecnológica',
+      'Presupuestos tecnológicos',
+      'Auditoría de infraestructura',
+      'Acompañamiento a empresas',
+    ],
+  },
+];
