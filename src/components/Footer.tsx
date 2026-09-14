@@ -14,9 +14,9 @@ export default function Footer() {
       <div className="absolute inset-0 tech-grid-fine opacity-10 pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 gap-9 mb-12 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-12 lg:grid-cols-4 lg:gap-10">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div className="sm:col-span-2 lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="relative w-8 h-8 flex items-center justify-center">
                 <div className="absolute inset-0 border border-neon-primary/30 rounded-md" />
@@ -32,8 +32,8 @@ export default function Footer() {
           </div>
 
           {/* Links */}
-          <div>
-            <span className="font-mono text-[10px] text-gray-text/40 tracking-widest uppercase block mb-4">Navegación</span>
+          <div className="sm:col-span-1">
+            <span className="font-mono text-[10px] text-gray-text/75 tracking-widest uppercase block mb-4">Navegación</span>
             <ul className="space-y-2.5">
               {links.map((link) => (
                 <li key={link.href}>
@@ -46,33 +46,33 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
-            <span className="font-mono text-[10px] text-gray-text/40 tracking-widest uppercase block mb-4">Contacto</span>
+          <div className="sm:col-span-1">
+            <span className="font-mono text-[10px] text-gray-text/75 tracking-widest uppercase block mb-4">Contacto</span>
             <ul className="space-y-3">
-              <li className="flex items-center gap-2.5 text-sm text-gray-text">
-                <MessageCircle className="w-4 h-4 text-neon-primary/40 flex-shrink-0" />
-                <span>WhatsApp — [placeholder]</span>
+              <li className="flex items-start gap-2.5 text-sm text-gray-text">
+                <MessageCircle className="w-4 h-4 text-neon-primary/75 flex-shrink-0" />
+                <span className="min-w-0 leading-relaxed">WhatsApp — [por configurar]</span>
               </li>
-              <li className="flex items-center gap-2.5 text-sm text-gray-text">
-                <Mail className="w-4 h-4 text-neon-primary/40 flex-shrink-0" />
-                <span>Correo — [placeholder]</span>
+              <li className="flex items-start gap-2.5 text-sm text-gray-text">
+                <Mail className="w-4 h-4 text-neon-primary/75 flex-shrink-0" />
+                <span className="min-w-0 leading-relaxed">Correo — [por configurar]</span>
               </li>
-              <li className="flex items-center gap-2.5 text-sm text-gray-text">
-                <MapPin className="w-4 h-4 text-neon-primary/40 flex-shrink-0" />
-                <span>Ubicación — [placeholder]</span>
+              <li className="flex items-start gap-2.5 text-sm text-gray-text">
+                <MapPin className="w-4 h-4 text-neon-primary/75 flex-shrink-0" />
+                <span className="min-w-0 leading-relaxed">Ubicación — [por configurar]</span>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="font-mono text-xs text-gray-text/40">
+        <div className="pt-8 border-t border-white/5 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-xs font-mono text-xs leading-relaxed text-gray-text/75">
             © 2026 Jorge A. Todos los derechos reservados.
           </p>
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-neon-primary/50 animate-pulse" />
-            <span className="font-mono text-[10px] text-gray-text/40 tracking-wider">SYSTEM OPERATIONAL</span>
+            <span className="font-mono text-[10px] text-gray-text/75 tracking-wider">SISTEMA OPERATIVO</span>
           </div>
         </div>
       </div>

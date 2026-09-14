@@ -15,6 +15,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isMobileViewport = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -23,10 +24,25 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousDocumentOverflow = document.documentElement.style.overflow;
+
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousDocumentOverflow;
+    };
+  }, [mobileOpen]);
+
   return (
     <>
       <motion.nav
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: isMobileViewport ? 0 : -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -35,7 +51,7 @@ export default function Navbar() {
             : 'bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 sm:h-18 flex items-center justify-between">
+        <div className="box-border flex h-16 w-full max-w-7xl min-w-0 mx-auto items-center justify-between px-4 sm:h-18 sm:px-8">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
             <div className="relative w-8 h-8 flex items-center justify-center">
@@ -62,11 +78,11 @@ export default function Navbar() {
           </div>
 
           {/* CTA + mobile toggle */}
-          <div className="flex items-center gap-3">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
             <NavLink
               to="/perfil"
               className={({ isActive }) =>
-                `inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg border transition-all duration-200 ${
+                `hidden sm:inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg border transition-all duration-200 ${
                   isActive
                     ? 'text-neon-light border-neon-primary/40 bg-neon-primary/10'
                     : 'text-white border-white/15 hover:border-neon-primary/40 hover:text-neon-light'
@@ -85,7 +101,7 @@ export default function Navbar() {
             </a>
             <button
               onClick={() => setMobileOpen(true)}
-              className="lg:hidden text-white p-2"
+              className="lg:hidden mr-0 shrink-0 rounded-lg p-2 text-white transition-colors hover:bg-white/5 hover:text-neon-light sm:mr-0"
               aria-label="Abrir menú"
             >
               <Menu className="w-6 h-6" />

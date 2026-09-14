@@ -101,7 +101,7 @@ export const services: ServiceItem[] = [
       'Routers',
       'VLAN',
       'Wi-Fi empresarial',
-      'Firewall',
+      'Cortafuegos',
       'VPN',
       'Segmentación de red',
     ],

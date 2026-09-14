@@ -4,19 +4,19 @@ import { ArrowRight, ArrowDown, Globe, Shield, Network, Server, Users, Code2, Cc
 
 const infraNodes = [
   { label: 'INTERNET', icon: Globe, desc: 'Conexión externa' },
-  { label: 'FIREWALL', icon: Shield, desc: 'Perímetro de seguridad' },
-  { label: 'NETWORK', icon: Network, desc: 'Conectividad empresarial' },
-  { label: 'SERVERS', icon: Server, desc: 'Infraestructura crítica' },
-  { label: 'USERS', icon: Users, desc: 'Gestión de acceso' },
-  { label: 'SOFTWARE', icon: Code2, desc: 'Automatización' },
+  { label: 'CORTAFUEGOS', icon: Shield, desc: 'Perímetro de seguridad' },
+  { label: 'REDES', icon: Network, desc: 'Conectividad empresarial' },
+  { label: 'SERVIDORES', icon: Server, desc: 'Infraestructura crítica' },
+  { label: 'USUARIOS', icon: Users, desc: 'Gestión de acceso' },
+  { label: 'APLICACIONES', icon: Code2, desc: 'Automatización' },
   { label: 'CCTV', icon: Cctv, desc: 'Seguridad electrónica' },
 ];
 
 const hudModules = [
-  { label: 'NETWORK', desc: 'Conectividad empresarial', icon: Network },
-  { label: 'SECURITY', desc: 'Protección de información', icon: Shield },
-  { label: 'SERVERS', desc: 'Infraestructura crítica', icon: Server },
-  { label: 'SOFTWARE', desc: 'Automatización', icon: Code2 },
+  { label: 'REDES', desc: 'Conectividad empresarial', icon: Network },
+  { label: 'SEGURIDAD', desc: 'Protección de información', icon: Shield },
+  { label: 'SERVIDORES', desc: 'Infraestructura crítica', icon: Server },
+  { label: 'APLICACIONES', desc: 'Automatización', icon: Code2 },
   { label: 'CCTV', desc: 'Seguridad electrónica', icon: Cctv },
 ];
 
@@ -73,13 +73,13 @@ export default function Hero() {
                   transition={{ duration: 0.4, delay: 0.15 }}
                   className="mb-6"
                 >
-                  <span className="font-mono text-[10px] text-gray-text/40 tracking-[0.15em]">
-                    TECHNOLOGY INFRASTRUCTURE
+                  <span className="font-mono text-[10px] text-gray-text/75 tracking-[0.15em]">
+                    INFRAESTRUCTURA TECNOLÓGICA
                   </span>
                   <div className="flex items-center gap-4 mt-1.5">
-                    <span className="font-mono text-[10px] text-neon-primary/50 tracking-wider">01 — SECURE</span>
-                    <span className="font-mono text-[10px] text-neon-primary/50 tracking-wider">02 — CONNECTED</span>
-                    <span className="font-mono text-[10px] text-neon-primary/50 tracking-wider">03 — SCALABLE</span>
+                    <span className="font-mono text-[10px] text-neon-primary/70 tracking-wider">01 — SEGURO</span>
+                    <span className="font-mono text-[10px] text-neon-primary/70 tracking-wider">02 — CONECTADO</span>
+                    <span className="font-mono text-[10px] text-neon-primary/80 tracking-wider">03 — ESCALABLE</span>
                   </div>
                 </motion.div>
 
@@ -144,9 +144,9 @@ export default function Hero() {
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.4, delay: 0.9 + i * 0.08 }}
-                      className="group flex items-center gap-2.5 px-3 py-2 rounded-lg border border-white/6 bg-white/[0.015] hover:border-neon-primary/25 hover:bg-neon-primary/[0.03] transition-all cursor-default"
+                      className="group flex items-center gap-2.5 px-3 py-2 rounded-lg border border-white/10 bg-white/[0.025] hover:border-neon-primary/25 hover:bg-neon-primary/[0.03] transition-all cursor-default"
                     >
-                      <mod.icon className="w-3.5 h-3.5 text-neon-primary/40 group-hover:text-neon-primary/70 transition-colors" />
+                      <mod.icon className="w-3.5 h-3.5 text-neon-primary/70 group-hover:text-neon-primary transition-colors" />
                       <span className="font-mono text-[10px] text-gray-text tracking-wider group-hover:text-neon-light transition-colors">
                         {mod.label}
                       </span>
@@ -174,8 +174,8 @@ export default function Hero() {
               className="flex items-center gap-2.5"
             >
               <span className="w-2 h-2 rounded-full bg-neon-primary shadow-[0_0_8px_rgba(25,229,107,0.5)] animate-pulse" />
-              <span className="font-mono text-[10px] text-gray-text/50 tracking-wider">SYSTEM STATUS</span>
-              <span className="font-mono text-[10px] text-neon-primary tracking-wider">OPERATIONAL</span>
+              <span className="font-mono text-[10px] text-gray-text/75 tracking-wider">ESTADO DEL SISTEMA</span>
+              <span className="font-mono text-[10px] text-neon-primary tracking-wider">OPERATIVO</span>
             </motion.div>
 
             {/* Scroll indicator */}
@@ -185,12 +185,12 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 1.4 }}
               className="hidden sm:flex items-center gap-2"
             >
-              <span className="font-mono text-[10px] text-gray-text/30 tracking-wider">DESLIZA PARA DESCUBRIR MÁS</span>
+              <span className="font-mono text-[10px] text-gray-text/75 tracking-wider">DESLIZA PARA DESCUBRIR MÁS</span>
               <motion.div
                 animate={{ y: [0, 4, 0] }}
                 transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
               >
-                <ArrowDown className="w-3.5 h-3.5 text-neon-primary/40" />
+                <ArrowDown className="w-3.5 h-3.5 text-neon-primary/70" />
               </motion.div>
             </motion.div>
           </div>
@@ -246,7 +246,7 @@ function InfraFlow() {
             >
               {/* Node dot with icon */}
               <div className="relative z-10 w-10 h-10 rounded-lg border border-neon-primary/15 bg-black-secondary/80 backdrop-blur flex items-center justify-center group-hover:border-neon-primary/40 transition-all duration-300">
-                <node.icon className="w-4 h-4 text-neon-primary/50 group-hover:text-neon-primary transition-colors" />
+                <node.icon className="w-4 h-4 text-neon-primary/75 group-hover:text-neon-primary transition-colors" />
                 {i === 0 && (
                   <div className="absolute inset-0 rounded-lg bg-neon-primary/5 blur-sm" />
                 )}
@@ -255,14 +255,14 @@ function InfraFlow() {
               {/* Node label */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[10px] text-gray-text/30 tracking-wider">
+                  <span className="font-mono text-[10px] text-gray-text/75 tracking-wider">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span className="font-mono text-xs text-gray-text tracking-wider group-hover:text-neon-light transition-colors">
                     {node.label}
                   </span>
                 </div>
-                <p className="text-[10px] text-gray-text/40 mt-0.5">{node.desc}</p>
+                <p className="text-[10px] text-gray-text/75 mt-0.5">{node.desc}</p>
               </div>
 
               {/* Status dot */}

@@ -92,16 +92,16 @@ export default function Plans() {
               </div>
 
               <div className="mb-6 pb-6 border-b border-white/5">
-                <span className="font-mono text-xs text-gray-text/40">Precio</span>
+                <span className="font-mono text-xs text-gray-text/75">Precio</span>
                 <p className="text-2xl font-bold text-white mt-1">
-                  <span className="text-gray-text/40">[Por definir]</span>
+                  <span className="text-gray-text/75">[Por definir]</span>
                 </p>
               </div>
 
               <ul className="space-y-3 mb-8">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2.5 text-sm text-gray-text">
-                    <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.highlighted ? 'text-neon-primary' : 'text-neon-primary/50'}`} />
+                    <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.highlighted ? 'text-neon-primary' : 'text-neon-primary/75'}`} />
                     {feature}
                   </li>
                 ))}

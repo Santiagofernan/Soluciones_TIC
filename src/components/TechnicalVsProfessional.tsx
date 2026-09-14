@@ -51,7 +51,7 @@ export default function TechnicalVsProfessional() {
                 <Wrench className="w-5 h-5 text-gray-text" />
               </div>
               <div>
-                <span className="font-mono text-[10px] text-gray-text/50 tracking-widest uppercase">Para necesidades puntuales</span>
+                <span className="font-mono text-[10px] text-gray-text/75 tracking-widest uppercase">Para necesidades puntuales</span>
                 <h3 className="text-xl font-semibold text-white">Servicios técnicos</h3>
               </div>
             </div>
@@ -89,7 +89,7 @@ export default function TechnicalVsProfessional() {
                 <Briefcase className="w-5 h-5 text-neon-primary" />
               </div>
               <div>
-                <span className="font-mono text-[10px] text-neon-primary/60 tracking-widest uppercase">Para empresas que necesitan más</span>
+                <span className="font-mono text-[10px] text-neon-primary/75 tracking-widest uppercase">Para empresas que necesitan más</span>
                 <h3 className="text-xl font-semibold text-white">Servicios profesionales</h3>
               </div>
             </div>

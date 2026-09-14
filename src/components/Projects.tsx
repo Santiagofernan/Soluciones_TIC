@@ -19,7 +19,7 @@ export default function Projects() {
               Casos de <span className="text-neon-primary">éxito</span>.
             </h2>
           </div>
-          <span className="font-mono text-xs text-gray-text/40 tracking-wider">[PROYECTOS DE EJEMPLO — SERÁN REEMPLAZADOS POR CASOS REALES]</span>
+          <span className="font-mono text-xs text-gray-text/75 tracking-wider">[PROYECTOS DE EJEMPLO — SERÁN REEMPLAZADOS POR CASOS REALES]</span>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 gap-5">
@@ -53,7 +53,7 @@ export default function Projects() {
 
                 {/* Project number */}
                 <div className="absolute top-4 right-4">
-                  <span className="font-mono text-xs text-gray-text/60 tracking-wider">PROYECTO {project.id}</span>
+                  <span className="font-mono text-xs text-gray-text/80 tracking-wider">PROYECTO {project.id}</span>
                 </div>
               </div>
 
@@ -66,7 +66,7 @@ export default function Projects() {
                     </h3>
                     <p className="text-sm text-gray-text leading-relaxed">{project.description}</p>
                   </div>
-                  <ArrowUpRight className="w-5 h-5 text-gray-text/40 group-hover:text-neon-primary group-hover:rotate-12 transition-all flex-shrink-0 mt-1" />
+                  <ArrowUpRight className="w-5 h-5 text-gray-text/75 group-hover:text-neon-primary group-hover:rotate-12 transition-all flex-shrink-0 mt-1" />
                 </div>
               </div>
 

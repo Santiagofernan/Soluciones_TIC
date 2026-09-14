@@ -44,7 +44,7 @@ export const resources: Resource[] = [
     id: '05',
     title: '¿Por qué mi empresa debería tener copias de seguridad?',
     category: 'Continuidad',
-    description: 'La importancia de los backups para la supervivencia del negocio.',
+    description: 'La importancia de las copias de seguridad para la supervivencia del negocio.',
     date: '2026-07-15',
     slug: 'por-que-tener-copias-de-seguridad',
   },

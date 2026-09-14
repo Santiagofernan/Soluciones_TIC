@@ -14,7 +14,7 @@ export default {
           light: '#8AFFB5',
         },
         gray: {
-          text: '#8B968F',
+          text: '#B2BDB6',
         },
       },
       fontFamily: {

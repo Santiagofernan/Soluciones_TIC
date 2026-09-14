@@ -96,8 +96,8 @@ export default function ProblemSection() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-7 lg:col-start-1"
           >
-            <span className="font-mono text-[10px] text-neon-primary/40 tracking-[0.2em]">
-              ECOSYSTEM · TECHNOLOGY
+            <span className="font-mono text-[10px] text-neon-primary/75 tracking-[0.2em]">
+              ECOSISTEMA · TECNOLOGÍA
             </span>
             <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight">
               Tu empresa depende de <span className="text-neon-primary">la tecnología.</span>
@@ -116,21 +116,21 @@ export default function ProblemSection() {
             className="hidden lg:flex lg:col-span-4 lg:col-start-9 self-end flex-col border-l border-neon-primary/15 pl-5 pb-1"
           >
             <div className="flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.16em]">
-              <span className="text-gray-text/45">SYSTEM STATUS</span>
+              <span className="text-gray-text/75">ESTADO DEL SISTEMA</span>
               <span className="flex items-center gap-2 text-neon-primary/70">
                 <span className="h-1.5 w-1.5 rounded-full bg-neon-primary shadow-[0_0_7px_rgba(25,229,107,0.7)]" />
-                CONNECTED
+                CONECTADO
               </span>
             </div>
             <p className="mt-4 font-mono text-[10px] tracking-[0.13em] text-gray-text/65">
-              INFRASTRUCTURE <span className="text-neon-primary/45">/</span> SECURITY <span className="text-neon-primary/45">/</span> NETWORK
+              INFRAESTRUCTURA <span className="text-neon-primary/65">/</span> SEGURIDAD <span className="text-neon-primary/65">/</span> REDES
             </p>
-            <div className="mt-3 flex items-center gap-3 font-mono text-[9px] tracking-[0.14em] text-gray-text/45">
-              <span>SYSTEM 01</span>
+            <div className="mt-3 flex items-center gap-3 font-mono text-[9px] tracking-[0.14em] text-gray-text/75">
+              <span>SISTEMA 01</span>
               <span className="h-1 w-1 rounded-full bg-neon-primary/40" />
-              <span>SECURE</span>
+              <span>SEGURO</span>
               <span className="h-1 w-1 rounded-full bg-neon-primary/40" />
-              <span>CONTINUOUS</span>
+              <span>CONTINUO</span>
             </div>
           </motion.div>
         </div>
@@ -159,7 +159,7 @@ export default function ProblemSection() {
         >
           {active && (
             <div className="text-center">
-              <span className="font-mono text-[10px] text-neon-primary/50 tracking-widest">
+              <span className="font-mono text-[10px] text-neon-primary/75 tracking-widest">
                 {active.number} — {active.label}
               </span>
               <p className="mt-2 text-sm text-gray-text max-w-md mx-auto leading-relaxed">
@@ -315,7 +315,7 @@ function SystemCore() {
       {/* Core */}
       <div className="relative w-16 h-16 rounded-full border border-neon-primary/30 bg-black-secondary/90 backdrop-blur flex flex-col items-center justify-center">
         <Radio className="w-5 h-5 text-neon-primary" />
-        <span className="font-mono text-[7px] text-neon-primary/60 tracking-wider mt-0.5">CORE</span>
+        <span className="font-mono text-[7px] text-neon-primary/80 tracking-wider mt-0.5">NÚCLEO</span>
       </div>
 
       {/* Orbiting dots */}
@@ -365,7 +365,7 @@ function NodeCard({
       {/* Number */}
       <span
         className={`font-mono text-[9px] tracking-wider transition-colors ${
-          isActive ? 'text-neon-primary' : 'text-gray-text/30'
+          isActive ? 'text-neon-primary' : 'text-gray-text/75'
         }`}
       >
         {node.number}
@@ -381,7 +381,7 @@ function NodeCard({
       >
         <Icon
           className={`w-4 h-4 transition-colors ${
-            isActive ? 'text-neon-primary' : 'text-gray-text/50'
+            isActive ? 'text-neon-primary' : 'text-gray-text/75'
           }`}
         />
       </div>
@@ -453,13 +453,13 @@ function MobileDiagram({
                   : 'border-white/8 bg-black-secondary/60'
               }`}
             >
-              <span className={`font-mono text-[9px] tracking-wider mt-1 ${isActive ? 'text-neon-primary' : 'text-gray-text/30'}`}>
+              <span className={`font-mono text-[9px] tracking-wider mt-1 ${isActive ? 'text-neon-primary' : 'text-gray-text/75'}`}>
                 {node.number}
               </span>
               <div className={`w-9 h-9 rounded-lg flex items-center justify-center border flex-shrink-0 transition-all ${
                 isActive ? 'border-neon-primary/30 bg-neon-primary/5' : 'border-white/8 bg-white/[0.02]'
               }`}>
-                <Icon className={`w-4 h-4 transition-colors ${isActive ? 'text-neon-primary' : 'text-gray-text/50'}`} />
+                <Icon className={`w-4 h-4 transition-colors ${isActive ? 'text-neon-primary' : 'text-gray-text/75'}`} />
               </div>
               <div className="flex-1 min-w-0">
                 <span className={`font-mono text-xs tracking-wider block transition-colors ${isActive ? 'text-neon-light' : 'text-gray-text'}`}>

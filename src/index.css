@@ -10,6 +10,7 @@
   --color-black-surface: #111814;
   --color-neon-primary: #19E56B;
   --color-neon-light: #8AFFB5;
+  --color-gray-text: #B2BDB6;
 }
 
 * {
@@ -36,6 +37,9 @@
 
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -44,7 +48,16 @@ body {
   font-family: 'Space Grotesk', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
 }
 
 ::selection {

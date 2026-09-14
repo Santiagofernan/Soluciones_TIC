@@ -18,7 +18,7 @@ export default function Resources() {
           transition={{ duration: 0.6 }}
           className="max-w-2xl mb-16"
         >
-          <span className="font-mono text-xs text-neon-primary tracking-widest uppercase">Blog</span>
+          <span className="font-mono text-xs text-neon-primary tracking-widest uppercase">Recursos</span>
           <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
             Inteligencia <span className="text-neon-primary">tecnológica</span>.
           </h2>
@@ -41,7 +41,7 @@ export default function Resources() {
                 <span className="px-2.5 py-1 rounded-md bg-neon-primary/5 border border-neon-primary/15 font-mono text-[9px] text-neon-light tracking-wider">
                   {resource.category.toUpperCase()}
                 </span>
-                <span className="font-mono text-[10px] text-gray-text/40">{formatDate(resource.date)}</span>
+                <span className="font-mono text-[10px] text-gray-text/75">{formatDate(resource.date)}</span>
               </div>
 
               <h3 className="text-sm font-semibold text-white leading-snug mb-3 group-hover:text-neon-light transition-colors flex-grow">

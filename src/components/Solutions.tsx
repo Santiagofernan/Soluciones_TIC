@@ -38,7 +38,7 @@ export default function Solutions() {
                     <Icon className="w-5 h-5 text-neon-primary" />
                   </div>
                   <div>
-                    <span className="font-mono text-[10px] text-neon-primary/50 tracking-widest uppercase">{service.category}</span>
+                    <span className="font-mono text-[10px] text-neon-primary/75 tracking-widest uppercase">{service.category}</span>
                     <h3 className="text-lg font-semibold text-white leading-tight">{service.name}</h3>
                   </div>
                 </div>

@@ -55,14 +55,14 @@ export default function Contact() {
                 <MessageCircle className="w-5 h-5 text-neon-primary" />
                 <div>
                   <span className="block text-sm font-medium text-white">Hablar por WhatsApp</span>
-                  <span className="block font-mono text-[10px] text-gray-text/50">[Número por configurar]</span>
+                  <span className="block font-mono text-[10px] text-gray-text/75">[Número por configurar]</span>
                 </div>
                 <ArrowRight className="w-4 h-4 text-neon-primary ml-2 group-hover:translate-x-1 transition-transform" />
               </a>
 
               <div className="flex items-center gap-3 px-5 py-3.5 rounded-xl border border-white/8 bg-white/[0.02]">
                 <div className="w-2 h-2 rounded-full bg-neon-primary/50" />
-                <span className="font-mono text-xs text-gray-text/50">[Correo por configurar]</span>
+                <span className="font-mono text-xs text-gray-text/75">[Correo por configurar]</span>
               </div>
             </div>
           </motion.div>
@@ -128,7 +128,7 @@ export default function Contact() {
                   name="message"
                   rows={3}
                   placeholder="Cuéntanos más sobre tu necesidad..."
-                  className="w-full px-4 py-3 rounded-xl bg-black-primary/60 border border-white/8 text-sm text-white placeholder:text-gray-text/40 focus:border-neon-primary/40 focus:outline-none transition-colors resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-black-primary/60 border border-white/8 text-sm text-white placeholder:text-gray-text/65 focus:border-neon-primary/40 focus:outline-none transition-colors resize-none"
                 />
               </div>
 
@@ -170,7 +170,7 @@ function FormField({
         name={name}
         placeholder={placeholder}
         required={required}
-        className="w-full px-4 py-3 rounded-xl bg-black-primary/60 border border-white/8 text-sm text-white placeholder:text-gray-text/40 focus:border-neon-primary/40 focus:outline-none transition-colors"
+        className="w-full px-4 py-3 rounded-xl bg-black-primary/60 border border-white/8 text-sm text-white placeholder:text-gray-text/65 focus:border-neon-primary/40 focus:outline-none transition-colors"
       />
     </div>
   );

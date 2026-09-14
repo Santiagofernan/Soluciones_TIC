@@ -114,7 +114,7 @@ function ProfileHero() {
         className="flex min-w-0 flex-col justify-start rounded-2xl border border-white/10 bg-black-secondary/60 p-6 sm:p-8"
       >
         <div>
-          <span className="font-mono text-[10px] tracking-[0.2em] text-gray-text/60 uppercase">Conexiones</span>
+          <span className="font-mono text-[10px] tracking-[0.2em] text-gray-text/80 uppercase">Conexiones</span>
           <div className="mt-6 space-y-3">
             <a
               href={profile.linkedinUrl}
@@ -158,10 +158,10 @@ function TechVisual() {
       <div className="absolute -bottom-20 -left-10 h-48 w-48 rounded-full border border-neon-primary/10" aria-hidden="true" />
       <div className="relative flex h-full flex-col justify-between">
         <div className="flex items-center justify-between">
-          <span className="font-mono text-[10px] tracking-[0.2em] text-neon-primary/70">SYSTEMS / SECURITY</span>
+          <span className="font-mono text-[10px] tracking-[0.2em] text-neon-primary/85">SISTEMAS / SEGURIDAD</span>
           <span className="flex items-center gap-2 font-mono text-[10px] text-neon-primary/70">
             <span className="h-2 w-2 animate-pulse rounded-full bg-neon-primary shadow-[0_0_10px_rgba(25,229,107,0.8)]" />
-            ACTIVE
+            ACTIVO
           </span>
         </div>
 
@@ -199,7 +199,7 @@ function ProfileSummary() {
               className="group min-w-0 rounded-xl border border-white/8 bg-white/[0.02] p-4 transition-all hover:-translate-y-0.5 hover:border-neon-primary/25 hover:bg-neon-primary/[0.03]"
             >
               <Icon className="h-4 w-4 text-neon-primary/70" aria-hidden="true" />
-              <p className="mt-4 font-mono text-[10px] tracking-wider text-gray-text/60 uppercase">{item.label}</p>
+              <p className="mt-4 font-mono text-[10px] tracking-wider text-gray-text/80 uppercase">{item.label}</p>
               <p className="mt-1 text-sm leading-snug text-white">{item.value}</p>
             </motion.div>
           );
@@ -235,7 +235,7 @@ function ProfileCard({ title, index, icon: Icon, className = '', children }: { t
           </div>
           <h3 className="text-lg font-semibold text-white">{title}</h3>
         </div>
-        <span className="shrink-0 font-mono text-[10px] tracking-widest text-neon-primary/50">{index}</span>
+        <span className="shrink-0 font-mono text-[10px] tracking-widest text-neon-primary/75">{index}</span>
       </div>
       <div className="pt-6">{children}</div>
     </motion.section>
@@ -253,7 +253,7 @@ function ExperienceTimeline() {
               <h4 className="text-base font-semibold text-white">{item.role}</h4>
               <p className="mt-1 font-mono text-[10px] tracking-wider text-neon-primary/70 uppercase">{item.organization}</p>
             </div>
-            <span className="shrink-0 font-mono text-[10px] tracking-wider text-gray-text/60">{item.period}</span>
+            <span className="shrink-0 font-mono text-[10px] tracking-wider text-gray-text/80">{item.period}</span>
           </div>
           <p className="mt-3 text-sm leading-relaxed text-gray-text">{item.description}</p>
         </li>
@@ -297,7 +297,7 @@ function SkillsPanel() {
     <div className="space-y-5">
       {categories.map((category) => (
         <div key={category}>
-          <p className="mb-2 font-mono text-[10px] tracking-wider text-gray-text/60 uppercase">{category}</p>
+          <p className="mb-2 font-mono text-[10px] tracking-wider text-gray-text/80 uppercase">{category}</p>
           <div className="flex flex-wrap gap-2">
             {profile.skills.filter((skill) => skill.category === category).map((skill) => (
               <span key={skill.id} className="rounded-lg border border-neon-primary/15 bg-neon-primary/[0.05] px-3 py-1.5 text-xs text-gray-text">
@@ -308,7 +308,7 @@ function SkillsPanel() {
         </div>
       ))}
       <div className="border-t border-white/8 pt-5">
-        <p className="mb-2 font-mono text-[10px] tracking-wider text-gray-text/60 uppercase">Tecnologías</p>
+        <p className="mb-2 font-mono text-[10px] tracking-wider text-gray-text/80 uppercase">Tecnologías</p>
         <div className="flex flex-wrap gap-2">
           {profile.technologies.map((technology) => (
             <span key={technology} className="rounded-lg border border-white/10 px-3 py-1.5 text-xs text-gray-text">{technology}</span>

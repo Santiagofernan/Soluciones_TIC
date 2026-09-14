@@ -11,11 +11,11 @@ interface EcosystemNode {
 }
 
 const nodes: EcosystemNode[] = [
-  { id: 'internet', label: 'INTERNET', icon: Globe, info: 'Conexión externa · Firewall perimetral', level: 0 },
-  { id: 'firewall', label: 'FIREWALL', icon: Shield, info: 'Riesgos · Vulnerabilidades · MFA · Backups · Continuidad', level: 1 },
-  { id: 'network', label: 'NETWORK', icon: Network, info: 'VLAN · Firewall · VPN · Wi-Fi empresarial · Segmentación', level: 2 },
-  { id: 'servers', label: 'SERVERS', icon: Server, info: 'Instalación · Migración · Virtualización · Windows Server · Linux', level: 3 },
-  { id: 'users', label: 'USERS', icon: Users, info: 'Active Directory · Gestión de permisos · MFA', level: 3 },
+  { id: 'internet', label: 'INTERNET', icon: Globe, info: 'Conexión externa · Cortafuegos perimetral', level: 0 },
+  { id: 'firewall', label: 'CORTAFUEGOS', icon: Shield, info: 'Riesgos · Vulnerabilidades · MFA · Copias de seguridad · Continuidad', level: 1 },
+  { id: 'network', label: 'REDES', icon: Network, info: 'VLAN · Cortafuegos · VPN · Wi-Fi empresarial · Segmentación', level: 2 },
+  { id: 'servers', label: 'SERVIDORES', icon: Server, info: 'Instalación · Migración · Virtualización · Windows Server · Linux', level: 3 },
+  { id: 'users', label: 'USUARIOS', icon: Users, info: 'Active Directory · Gestión de permisos · MFA', level: 3 },
   { id: 'software', label: 'SOFTWARE', icon: Code2, info: 'Sistemas internos · Automatización · Aplicaciones web', level: 3 },
   { id: 'cctv', label: 'CCTV', icon: Cctv, info: 'Cámaras IP · NVR/DVR · Acceso remoto · Monitoreo', level: 3 },
 ];
@@ -56,12 +56,12 @@ export default function InfrastructureMap() {
 
             <Connector vertical />
 
-            {/* FIREWALL */}
+            {/* CORTAFUEGOS */}
             <EcosystemNodeButton node={nodes[1]} active={active} setActive={setActive} />
 
             <Connector vertical />
 
-            {/* NETWORK */}
+            {/* REDES */}
             <EcosystemNodeButton node={nodes[2]} active={active} setActive={setActive} />
 
             {/* Branch lines */}
