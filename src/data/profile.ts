@@ -1,4 +1,4 @@
-export interface ProfileExperience {
+export interface Experience {
   id: string;
   role: string;
   organization: string;
@@ -6,85 +6,163 @@ export interface ProfileExperience {
   description: string;
 }
 
-export interface ProfileEducation {
+export interface Education {
   id: string;
-  title: string;
+  degree: string;
   institution: string;
   period: string;
+  description?: string;
 }
 
-export interface ProfileCertification {
+export interface Certification {
   id: string;
   name: string;
   issuer: string;
   year: string;
+  credentialUrl?: string;
 }
 
-export interface ProfileData {
-  firstName: string;
-  lastName: string;
-  title: string;
-  photo: string | null;
-  bio: string;
-  summary: string;
-  tags: string[];
-  experience: ProfileExperience[];
-  education: ProfileEducation[];
-  certifications: ProfileCertification[];
+export interface Project {
+  id: string;
+  name: string;
+  description: string;
   technologies: string[];
 }
 
-export const profile: ProfileData = {
-  firstName: 'JORGE',
-  lastName: 'A.',
-  title: 'Ingeniero de Sistemas',
-  photo: null,
-  bio: 'Profesional orientado al diseño, implementación y optimización de soluciones tecnológicas para empresas.',
+export interface Skill {
+  id: string;
+  name: string;
+  category: string;
+}
+
+export interface Service {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface Profile {
+  fullName: string;
+  firstName: string;
+  lastName: string;
+  title: string;
+  photo: string;
+  bio: string;
+  summary: string;
+  location: string;
+  linkedinUrl: string;
+  tags: string[];
+  experience: Experience[];
+  education: Education[];
+  certifications: Certification[];
+  projects: Project[];
+  skills: Skill[];
+  technologies: string[];
+  services: Service[];
+}
+
+export const profile: Profile = {
+  fullName: 'JORGE ALEJANDRO LOPEZ SALAZAR',
+  firstName: 'JORGE ALEJANDRO',
+  lastName: 'LOPEZ SALAZAR',
+  title: 'Coordinador TIC',
+  photo:
+    'https://media.licdn.com/dms/image/v2/D4E03AQF5Sw_STrJP_A/profile-displayphoto-scale_100_100/B4EZgJ0OfuGcAg-/0/1752511344042?e=1790812800&v=beta&t=hokh7NIdyAvgPuLWoLRBa8T7LwIG2urGkfvJfo_Pbew',
+  bio: 'Ingeniero de sistemas, Especialista en Seguridad de la Información y Coordinador TIC en COOCENTRAL, con 12 años de experiencia en coordinación de equipos de tecnología, innovación y seguridad digital.',
   summary:
-    'Diseño, implemento y protejo la infraestructura de empresas que necesitan sistemas estables, seguros y preparados para crecer.',
-  tags: ['INFRAESTRUCTURA TI', 'CIBERSEGURIDAD', 'REDES', 'SOFTWARE'],
+    'Creo que podemos lograr grandes cosas pensando de manera diferente, integrando tecnología, innovación y seguridad para apoyar procesos organizacionales y del sector agropecuario.',
+  location: 'Garzón, Huila, Colombia',
+  linkedinUrl: 'https://www.linkedin.com/in/jorge-alejandro-lopez-salazar-294231261/',
+  tags: ['COORDINACIÓN TIC', 'SEGURIDAD DIGITAL', 'INNOVACIÓN', 'TECNOLOGÍA PARA EL AGRO'],
   experience: [
     {
       id: '01',
-      role: 'Consultoría e implementación TI',
-      organization: 'Proyectos empresariales',
+      role: 'Coordinador de TIC',
+      organization: 'COOCENTRAL',
       period: 'Actualidad',
       description:
-        'Acompañamiento en ciberseguridad, infraestructura, redes, seguridad electrónica y desarrollo de soluciones internas.',
-    },
-    {
-      id: '02',
-      role: 'Diseño de infraestructura',
-      organization: 'Entornos corporativos',
-      period: 'Trayectoria profesional',
-      description:
-        'Servidores, virtualización, Active Directory y plataformas empresariales orientadas a continuidad y disponibilidad.',
+        'Administración de tecnologías de la información y coordinación de equipos de tecnología, innovación y seguridad digital.',
     },
   ],
   education: [
     {
       id: '01',
-      title: 'Ingeniería de Sistemas',
-      institution: '[Institución]',
-      period: '[Año]',
+      degree: 'Especialista en Seguridad de la Información',
+      institution: 'Politécnico Grancolombiano',
+      period: 'ene. 2025 - abr. 2026',
+    },
+    {
+      id: '02',
+      degree: 'Ingeniería de Sistemas',
+      institution: '',
+      period: '',
     },
   ],
   certifications: [
     {
       id: '01',
-      name: '[Certificación]',
-      issuer: '[Entidad]',
-      year: '[Año]',
+      name: 'Introduction to Cybersecurity',
+      issuer: 'Cisco',
+      year: 'may. 2022',
+    },
+    {
+      id: '02',
+      name: 'Cyber Threat Management',
+      issuer: 'Cisco',
+      year: 'jun. 2026',
     },
   ],
+  projects: [
+    {
+      id: '01',
+      name: 'A-catar',
+      description:
+        'Aplicación con 3.500 muestras de asociados para apoyar la mejora continua del proceso de calidad en COOCENTRAL.',
+      technologies: [],
+    },
+    {
+      id: '02',
+      name: 'Caracterización de productores de café y cacao',
+      description:
+        'Adopción de herramientas digitales para caracterizar a 5.000 productores del departamento del Huila.',
+      technologies: ['KoboToolbox', 'Power BI'],
+    },
+    {
+      id: '03',
+      name: 'Solución para la gestión sostenible del paisaje cafetero',
+      description:
+        'Liderazgo de un equipo que desarrolló una solución integral para apoyar la gestión sostenible del paisaje cafetero.',
+      technologies: [],
+    },
+  ],
+  skills: [
+    { id: '01', name: 'Coordinación de equipos TIC', category: 'Gestión' },
+    { id: '02', name: 'Seguridad de la Información', category: 'Seguridad' },
+    { id: '03', name: 'Seguridad digital', category: 'Seguridad' },
+    { id: '04', name: 'Innovación tecnológica', category: 'Innovación' },
+    { id: '05', name: 'Tecnología aplicada al agro', category: 'Sector' },
+  ],
   technologies: [
-    'Windows Server',
-    'Linux',
-    'VMware',
-    'Active Directory',
-    'Firewall / VPN',
-    'VLAN',
-    'ISO 27001',
-    'CCTV IP',
+    'KoboToolbox',
+    'Power BI',
+    'Hikvision',
+    'Cisco',
+  ],
+  services: [
+    {
+      id: '01',
+      name: 'Coordinación TIC',
+      description: 'Gestión de equipos y tecnologías de la información para apoyar los objetivos de la organización.',
+    },
+    {
+      id: '02',
+      name: 'Seguridad de la Información',
+      description: 'Gestión de seguridad digital y fortalecimiento de la cultura de seguridad en los equipos de trabajo.',
+    },
+    {
+      id: '03',
+      name: 'Innovación tecnológica',
+      description: 'Desarrollo y adopción de herramientas digitales para mejorar procesos y toma de decisiones.',
+    },
   ],
 };
