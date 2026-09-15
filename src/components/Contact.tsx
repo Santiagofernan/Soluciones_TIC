@@ -140,13 +140,13 @@ export default function Contact() {
             {/* Direct contact */}
             <div className="mt-10 space-y-4">
               <a
-                href="https://wa.me/[WHATSAPP_PLACEHOLDER]"
+                href="/#contacto"
                 className="inline-flex items-center gap-3 px-5 py-3.5 rounded-xl border border-neon-primary/20 bg-neon-primary/5 hover:bg-neon-primary/10 hover:border-neon-primary/40 transition-all group"
               >
                 <MessageCircle className="w-5 h-5 text-neon-primary" />
                 <div>
                   <span className="block text-sm font-medium text-white">Hablar por WhatsApp</span>
-                  <span className="block font-mono text-[10px] text-gray-text/75">[Número por configurar]</span>
+                  <span className="block font-mono text-[10px] text-gray-text/75">320 8033546</span>
                 </div>
                 <ArrowRight className="w-4 h-4 text-neon-primary ml-2 group-hover:translate-x-1 transition-transform" />
               </a>

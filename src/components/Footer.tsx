@@ -1,11 +1,12 @@
 import { MessageCircle, Mail, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const links = [
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Soluciones', href: '#soluciones' },
-  { label: 'Proyectos', href: '#proyectos' },
-  { label: 'Recursos', href: '#recursos' },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Servicios', href: '/#servicios' },
+  { label: 'Soluciones', href: '/#soluciones' },
+  { label: 'Proyectos', href: '/#proyectos' },
+  { label: 'Recursos', href: '/#recursos' },
+  { label: 'Contacto', href: '/#contacto' },
 ];
 
 export default function Footer() {
@@ -17,15 +18,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-9 mb-12 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-12 lg:grid-cols-4 lg:gap-10">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-2">
-            <div className="flex items-center gap-2.5 mb-4">
+            <Link to="/" className="mb-4 flex items-center gap-2.5 group">
               <div className="relative w-8 h-8 flex items-center justify-center">
                 <div className="absolute inset-0 border border-neon-primary/30 rounded-md" />
                 <div className="w-2 h-2 rounded-full bg-neon-primary shadow-[0_0_12px_rgba(25,229,107,0.6)]" />
               </div>
-              <span className="font-semibold text-white tracking-wide text-lg">
-                JORGE<span className="text-neon-primary"> A.</span>
+              <span className="font-semibold text-white tracking-wide text-lg transition-colors group-hover:text-neon-light">
+                Alsoft-<span className="text-neon-primary">Cloud</span>
               </span>
-            </div>
+            </Link>
             <p className="text-sm text-gray-text max-w-xs leading-relaxed">
               Soluciones TI · Ciberseguridad · Infraestructura
             </p>
@@ -68,7 +69,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-xs font-mono text-xs leading-relaxed text-gray-text/75">
-            © 2026 Jorge A. Todos los derechos reservados.
+            © 2026 Alsoft-Cloud. Todos los derechos reservados.
           </p>
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-neon-primary/50 animate-pulse" />

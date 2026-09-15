@@ -55,7 +55,7 @@ export default function ProfessionalProfile() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <h3 className="text-2xl sm:text-3xl font-bold text-white">
-              JORGE <span className="text-gray-text/40">[APELLIDO]</span>
+              Alsoft-Cloud <span className="text-gray-text/40">[APELLIDO]</span>
             </h3>
             <p className="mt-2 text-neon-primary font-mono text-sm tracking-wider">Ingeniero de Sistemas</p>
 

@@ -59,7 +59,7 @@ export default function Navbar() {
               <div className="w-2 h-2 rounded-full bg-neon-primary shadow-[0_0_12px_rgba(25,229,107,0.6)] group-hover:shadow-[0_0_16px_rgba(25,229,107,0.8)] transition-all" />
             </div>
             <span className="font-semibold text-white tracking-wide text-lg">
-              JORGE<span className="text-neon-primary"> A.</span>
+              Alsoft-<span className="text-neon-primary">Cloud</span>
             </span>
           </Link>
 
@@ -129,9 +129,13 @@ export default function Navbar() {
               className="absolute right-0 top-0 bottom-0 w-72 bg-black-secondary border-l border-neon-primary/10 p-6 flex flex-col"
             >
               <div className="flex items-center justify-between mb-10">
-                <span className="font-semibold text-white tracking-wide">
-                  JORGE<span className="text-neon-primary"> A.</span>
-                </span>
+                <Link
+                  to="/"
+                  onClick={() => setMobileOpen(false)}
+                  className="font-semibold text-white tracking-wide"
+                >
+                  Alsoft-Cloud<span className="text-neon-primary"></span>
+                </Link>
                 <button onClick={() => setMobileOpen(false)} className="text-gray-text hover:text-white" aria-label="Cerrar menú">
                   <X className="w-6 h-6" />
                 </button>
