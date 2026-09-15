@@ -27,7 +27,7 @@ export default function Resources() {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid gap-5 sm:grid-cols-2">
           {resources.map((resource, i) => (
             <motion.article
               key={resource.id}
@@ -35,30 +35,38 @@ export default function Resources() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
-              className="group relative rounded-2xl glass-card p-6 hover:border-neon-primary/25 transition-all duration-300 flex flex-col"
+              className="group relative flex min-h-[290px] flex-col overflow-hidden rounded-2xl glass-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-neon-primary/35 hover:shadow-[0_14px_42px_rgba(25,229,107,0.10)] sm:min-h-[310px] sm:p-8"
             >
-              <div className="flex items-center justify-between mb-4">
-                <span className="px-2.5 py-1 rounded-md bg-neon-primary/5 border border-neon-primary/15 font-mono text-[9px] text-neon-light tracking-wider">
+              <div className="flex items-start justify-between gap-4">
+                <span className="font-mono text-2xl font-semibold tracking-wider text-neon-primary/80">
+                  {resource.id}
+                </span>
+                <span className="rounded-md border border-neon-primary/20 bg-neon-primary/[0.07] px-2.5 py-1.5 font-mono text-[10px] tracking-wider text-neon-light">
                   {resource.category.toUpperCase()}
                 </span>
-                <span className="font-mono text-[10px] text-gray-text/75">{formatDate(resource.date)}</span>
               </div>
 
-              <h3 className="text-sm font-semibold text-white leading-snug mb-3 group-hover:text-neon-light transition-colors flex-grow">
+              <div className="mt-8 flex flex-grow flex-col">
+                <span className="font-mono text-[10px] tracking-[0.18em] text-gray-text/80 uppercase">Pregunta tecnológica</span>
+                <h3 className="mt-3 text-xl font-semibold leading-tight text-white transition-colors group-hover:text-neon-light sm:text-2xl">
                 {resource.title}
-              </h3>
+                </h3>
 
-              <p className="text-xs text-gray-text leading-relaxed mb-4">{resource.description}</p>
+                <p className="mt-4 max-w-xl text-sm leading-relaxed text-gray-text">{resource.description}</p>
+              </div>
 
-              <a
-                href={`#recurso-${resource.slug}`}
-                className="inline-flex items-center gap-1.5 text-xs text-neon-primary hover:text-neon-light transition-colors mt-auto"
-              >
-                Leer artículo
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              <div className="mt-7 flex items-center justify-between gap-4 border-t border-white/10 pt-4">
+                <span className="font-mono text-[10px] tracking-wider text-gray-text/80">{formatDate(resource.date)}</span>
+                <a
+                  href={`#recurso-${resource.slug}`}
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-neon-primary transition-colors hover:text-neon-light"
+                >
+                  Leer artículo
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </a>
+              </div>
 
-              <div className="absolute bottom-0 left-0 h-px w-0 bg-gradient-to-r from-neon-primary to-transparent group-hover:w-full transition-all duration-500" />
+              <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-neon-primary to-transparent transition-all duration-500 group-hover:w-full" />
             </motion.article>
           ))}
         </div>

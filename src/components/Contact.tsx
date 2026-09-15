@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, MessageCircle, Send, CheckCircle2 } from 'lucide-react';
 
@@ -13,14 +13,105 @@ const serviceOptions = [
   'Otro',
 ];
 
+type TurnstileWidget = {
+  render: (container: HTMLElement, options: {
+    sitekey: string;
+    theme?: 'light' | 'dark' | 'auto';
+    size?: 'normal' | 'compact' | 'flexible';
+    callback?: (token: string) => void;
+    'expired-callback'?: () => void;
+    'error-callback'?: () => void;
+  }) => string;
+  reset: (widgetId?: string) => void;
+  remove: (widgetId?: string) => void;
+};
+
+type TurnstileWindow = Window & { turnstile?: TurnstileWidget };
+
 export default function Contact() {
   const [selectedService, setSelectedService] = useState<string>('');
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [captchaToken, setCaptchaToken] = useState('');
+  const captchaRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | undefined>(undefined);
+  const formspreeId = import.meta.env.VITE_FORMSPREE_FORM_ID?.trim();
+  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (!turnstileSiteKey || !captchaRef.current) return;
+
+    const renderCaptcha = () => {
+      const turnstile = (window as TurnstileWindow).turnstile;
+      if (!turnstile || !captchaRef.current || widgetIdRef.current) return;
+
+      widgetIdRef.current = turnstile.render(captchaRef.current, {
+        sitekey: turnstileSiteKey,
+        theme: 'dark',
+        size: 'flexible',
+        callback: (token) => {
+          setCaptchaToken(token);
+          setSubmitError('');
+        },
+        'expired-callback': () => setCaptchaToken(''),
+        'error-callback': () => {
+          setCaptchaToken('');
+          setSubmitError('No se pudo validar el CAPTCHA. Inténtalo de nuevo.');
+        },
+      });
+    };
+
+    if ((window as TurnstileWindow).turnstile) {
+      renderCaptcha();
+    } else {
+      window.addEventListener('load', renderCaptcha, { once: true });
+    }
+
+    return () => {
+      window.removeEventListener('load', renderCaptcha);
+      const turnstile = (window as TurnstileWindow).turnstile;
+      if (turnstile && widgetIdRef.current) turnstile.remove(widgetIdRef.current);
+      widgetIdRef.current = undefined;
+    };
+  }, [turnstileSiteKey]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    setSubmitError('');
+
+    if (!formspreeId || !turnstileSiteKey) {
+      setSubmitError('Configura las variables de Formspree y Turnstile para activar el formulario.');
+      return;
+    }
+
+    if (!captchaToken) {
+      setSubmitError('Completa la validación CAPTCHA antes de enviar la solicitud.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(e.currentTarget),
+      });
+
+      if (!response.ok) throw new Error('Formspree respondió con un error.');
+
+      e.currentTarget.reset();
+      setSelectedService('');
+      setCaptchaToken('');
+      setSubmitted(true);
+      const turnstile = (window as TurnstileWindow).turnstile;
+      if (turnstile && widgetIdRef.current) turnstile.reset(widgetIdRef.current);
+    } catch {
+      setSubmitError('No se pudo enviar la solicitud. Inténtalo de nuevo.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -73,8 +164,9 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: 0.15 }}
+            className="min-w-0 max-w-full"
           >
-            <form onSubmit={handleSubmit} className="rounded-2xl glass-card p-6 sm:p-8 space-y-5">
+            <form onSubmit={handleSubmit} className="box-border w-full min-w-0 max-w-full rounded-2xl glass-card p-6 sm:p-8 space-y-5">
               {submitted && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -84,6 +176,12 @@ export default function Contact() {
                   <CheckCircle2 className="w-5 h-5 text-neon-primary flex-shrink-0" />
                   <span className="text-sm text-neon-light">Solicitud enviada. Te contactaremos pronto.</span>
                 </motion.div>
+              )}
+
+              {submitError && (
+                <p role="alert" className="rounded-xl border border-red-400/30 bg-red-400/10 px-4 py-3 text-sm leading-relaxed text-red-200">
+                  {submitError}
+                </p>
               )}
 
               <div className="grid sm:grid-cols-2 gap-4">
@@ -132,12 +230,28 @@ export default function Contact() {
                 />
               </div>
 
+              <input type="hidden" name="service" value={selectedService} />
+
+              <div
+                className="box-border flex h-[81px] w-full min-w-0 max-w-full items-center overflow-hidden rounded-lg border border-white/8 bg-black-primary/30 px-2 [&_iframe]:!block [&_iframe]:!h-[65px] [&_iframe]:!max-w-full [&_iframe]:!w-full"
+                aria-label="Validación CAPTCHA"
+              >
+                {turnstileSiteKey ? (
+                  <div ref={captchaRef} className="flex h-[65px] w-full min-w-0 max-w-full items-center overflow-hidden" />
+                ) : (
+                  <p className="px-2 text-xs leading-relaxed text-gray-text">
+                    CAPTCHA pendiente de configuración.
+                  </p>
+                )}
+              </div>
+
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-medium text-black-primary bg-neon-primary rounded-xl hover:bg-neon-light transition-all duration-200 hover:shadow-[0_0_24px_rgba(25,229,107,0.3)]"
+                disabled={isSubmitting}
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-medium text-black-primary bg-neon-primary rounded-xl hover:bg-neon-light disabled:cursor-not-allowed disabled:opacity-60 transition-all duration-200 hover:shadow-[0_0_24px_rgba(25,229,107,0.3)]"
               >
-                Solicitar diagnóstico
-                <Send className="w-4 h-4" />
+                {isSubmitting ? 'Enviando solicitud...' : 'Solicitar diagnóstico'}
+                {!isSubmitting && <Send className="w-4 h-4" />}
               </button>
             </form>
           </motion.div>
