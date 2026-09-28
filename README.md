@@ -1,25 +1,27 @@
-# Tec_J — Soluciones Tecnológicas
+# Tec_J — Alsoft-Cloud
 
-Sitio web profesional para presentar servicios de tecnología, infraestructura y soluciones digitales para empresas.
+Sitio web profesional de **Alsoft-Cloud** para presentar servicios de tecnología, infraestructura y soluciones digitales para empresas.
 
 ## Descripción
 
-Tec_J es una página web moderna, responsive e interactiva orientada a servicios profesionales de tecnología. El sitio presenta información sobre el perfil del ingeniero, servicios ofrecidos y un formulario de contacto protegido con CAPTCHA.
+Tec_J es una landing page moderna, responsive e interactiva orientada a servicios profesionales de tecnología. El sitio presenta la propuesta de valor, los servicios, la metodología de trabajo, proyectos, planes, recursos, el perfil del ingeniero y un formulario de contacto con protección antispam.
 
 ## Características
 
-- Diseño moderno con estética tecnológica.
+- Diseño moderno con estética tecnológica y paleta verde suavizada.
 - Interfaz responsive para computadores, tablets y celulares.
-- Sección principal con propuesta de valor.
-- Sección de servicios tecnológicos.
-- Página independiente de perfil profesional.
-- Información de experiencia, formación, habilidades y proyectos.
+- Logo **Alsoft-Cloud** animado e interactivo: al hacer clic vuelve al inicio desde cualquier parte del sitio.
+- Favicon propio con el logo de la marca.
+- Mapa interactivo del ecosistema tecnológico.
+- Mapa de infraestructura en línea horizontal con información bajo cada nodo.
+- Secciones de servicios, metodología, proyectos, planes y recursos.
+- Barra de navegación ordenada según las secciones de la página, con resaltado de la sección activa al hacer scroll.
+- Menú y footer generados desde una misma lista de navegación (`src/data/navigation.ts`).
+- Página independiente de perfil profesional con pestañas (experiencia, formación, certificaciones y habilidades), contadores animados y proyectos destacados.
+- Transición de carga animada entre páginas y precargador inicial (sin pantallazo en blanco).
 - Enlace al perfil oficial de LinkedIn.
-- Formulario de contacto.
-- Envío de formularios mediante Formspree.
-- Protección antispam mediante Cloudflare Turnstile.
-- Animaciones e interacciones sutiles.
-- Navegación móvil mediante menú hamburguesa.
+- Formulario de contacto enviado mediante Formspree.
+- Protección antispam mediante campo honeypot (sin CAPTCHA).
 - Validación de datos del formulario.
 - Configuración mediante variables de entorno.
 
@@ -28,11 +30,11 @@ Tec_J es una página web moderna, responsive e interactiva orientada a servicios
 - React
 - TypeScript
 - Vite
+- React Router
 - Tailwind CSS
 - Framer Motion
 - Lucide React
 - Formspree
-- Cloudflare Turnstile
 - ESLint
 - PostCSS
 
@@ -73,16 +75,15 @@ npm install
 
 ## Variables de entorno
 
-Crea un archivo llamado `.env.local` en la raíz del proyecto:
+Copia el archivo `.env.example` como `.env.local` en la raíz del proyecto y completa el valor:
 
 ```env
 VITE_FORMSPREE_FORM_ID=TU_FORM_ID
-VITE_TURNSTILE_SITE_KEY=TU_SITE_KEY
 ```
 
-No compartas claves privadas ni subas archivos `.env.local` al repositorio.
+El Form ID es la parte final del endpoint de Formspree (`https://formspree.io/f/TU_FORM_ID`).
 
-La Site Key de Turnstile puede utilizarse en el frontend. La Secret Key debe mantenerse privada y no debe incluirse en archivos públicos ni en variables que comiencen por `VITE_`.
+No subas archivos `.env.local` al repositorio. Recuerda que cualquier variable que empiece por `VITE_` queda visible en el frontend, así que nunca guardes ahí claves secretas.
 
 ## Ejecutar en desarrollo
 
@@ -143,32 +144,33 @@ npm run build
 El formulario utiliza:
 
 - Formspree para procesar y enviar los datos.
-- Cloudflare Turnstile para reducir envíos automatizados y spam.
+- Un campo honeypot oculto (`_gotcha`) para frenar bots. Las personas no lo ven; si un bot lo llena, el envío se descarta. Formspree también reconoce este campo y aplica su propio filtro de spam.
 
 Antes de publicar, verifica que:
 
-1. El Form ID sea real.
-2. La Site Key de Turnstile sea correcta.
-3. El dominio de producción esté registrado en Cloudflare Turnstile.
-4. El correo de destino esté configurado en Formspree.
-5. El formulario funcione correctamente en computador y celular.
+1. El Form ID sea real y esté configurado en las variables de entorno del hosting.
+2. El correo de destino esté configurado en Formspree.
+3. El dominio de producción esté permitido en la configuración del formulario de Formspree (si restringes dominios).
+4. El formulario funcione correctamente en computador y celular.
 
 ## Estructura general
 
 ```text
 src/
-├── components/
-├── pages/
-├── data/
-├── assets/
-├── App.tsx
+├── components/     # Secciones de la landing, Navbar, Footer, BrandLogo, PageTransition
+├── pages/          # Página de perfil profesional
+├── data/           # Contenido: navegación, servicios, proyectos, recursos, perfil
+├── lib/            # Utilidades (iconos)
+├── assets/         # Imágenes e iconos
+├── App.tsx         # Rutas: "/" (landing) y "/perfil"
 ├── main.tsx
-└── index.css
+└── index.css       # Estilos globales y animaciones de marca
 
 public/
+└── favicon.svg
 ```
 
-La estructura exacta puede variar según los componentes y archivos actuales del proyecto.
+Para cambiar el orden o los enlaces del menú y del footer, edita `src/data/navigation.ts`. Cada `sectionId` debe coincidir con el `id` de la sección correspondiente en la landing.
 
 ## Responsive
 
@@ -211,10 +213,12 @@ dist/
 
 La carpeta `dist` puede publicarse en un hosting compatible con sitios estáticos.
 
+Como el sitio usa React Router, el hosting debe redirigir todas las rutas a `index.html` para que `/perfil` funcione al recargar o al abrirse desde un enlace directo. Por ejemplo, en Netlify con un archivo `public/_redirects` que contenga `/* /index.html 200`, o en Vercel con una regla de *rewrite* equivalente.
+
 ## Recomendaciones de seguridad
 
 - No subir `.env.local`.
-- No publicar Secret Keys.
+- No publicar claves secretas ni guardarlas en variables `VITE_`.
 - No almacenar contraseñas en el frontend.
 - Validar los datos recibidos por el servicio de formularios.
 - Mantener actualizadas las dependencias.
