@@ -47,7 +47,6 @@ export interface Profile {
   firstName: string;
   lastName: string;
   title: string;
-  photo: string;
   bio: string;
   summary: string;
   location: string;
@@ -67,8 +66,6 @@ export const profile: Profile = {
   firstName: 'JORGE ALEJANDRO',
   lastName: 'LOPEZ SALAZAR',
   title: 'Coordinador TIC',
-  photo:
-    'https://media.licdn.com/dms/image/v2/D4E03AQF5Sw_STrJP_A/profile-displayphoto-scale_100_100/B4EZgJ0OfuGcAg-/0/1752511344042?e=1790812800&v=beta&t=hokh7NIdyAvgPuLWoLRBa8T7LwIG2urGkfvJfo_Pbew',
   bio: 'Ingeniero de sistemas, Especialista en Seguridad de la Información y Coordinador TIC en COOCENTRAL, con 12 años de experiencia en coordinación de equipos de tecnología, innovación y seguridad digital.',
   summary:
     'Creo que podemos lograr grandes cosas pensando de manera diferente, integrando tecnología, innovación y seguridad para apoyar procesos organizacionales y del sector agropecuario.',

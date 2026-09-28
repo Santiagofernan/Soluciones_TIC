@@ -2,8 +2,12 @@
 
 interface ImportMetaEnv {
   readonly VITE_FORMSPREE_FORM_ID?: string;
+  readonly VITE_SITE_URL?: string;
 }
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+/** Public site URL resolved by vite-plugin-seo (VITE_SITE_URL or the default domain). */
+declare const __SITE_URL__: string;

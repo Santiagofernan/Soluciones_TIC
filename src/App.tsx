@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import PageTransition from '@/components/PageTransition';
+import RouteSeo from '@/components/RouteSeo';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import ProblemSection from '@/components/ProblemSection';
@@ -38,6 +39,7 @@ function Home() {
 export default function App() {
   return (
     <div className="min-h-screen bg-black-primary text-white">
+      <RouteSeo />
       <PageTransition />
       <Navbar />
       <Routes>

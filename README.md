@@ -23,6 +23,7 @@ Tec_J es una landing page moderna, responsive e interactiva orientada a servicio
 - Formulario de contacto enviado mediante Formspree.
 - Protección antispam mediante campo honeypot (sin CAPTCHA).
 - Validación de datos del formulario.
+- SEO completo: metadatos por página, Open Graph, datos estructurados, sitemap y robots.
 - Configuración mediante variables de entorno.
 
 ## Tecnologías utilizadas
@@ -79,9 +80,11 @@ Copia el archivo `.env.example` como `.env.local` en la raíz del proyecto y com
 
 ```env
 VITE_FORMSPREE_FORM_ID=TU_FORM_ID
+VITE_SITE_URL=https://tu-dominio.com
 ```
 
-El Form ID es la parte final del endpoint de Formspree (`https://formspree.io/f/TU_FORM_ID`).
+- `VITE_FORMSPREE_FORM_ID`: la parte final del endpoint de Formspree (`https://formspree.io/f/TU_FORM_ID`).
+- `VITE_SITE_URL`: dirección pública del sitio, sin `/` al final. Se usa en la URL canónica, el `sitemap.xml`, el `robots.txt` y las vistas previas en redes sociales. Si no se define, se usa `https://alsoft-cloud.com` y la compilación muestra un aviso.
 
 No subas archivos `.env.local` al repositorio. Recuerda que cualquier variable que empiece por `VITE_` queda visible en el frontend, así que nunca guardes ahí claves secretas.
 
@@ -166,8 +169,9 @@ src/
 ├── main.tsx
 └── index.css       # Estilos globales y animaciones de marca
 
-public/
-└── favicon.svg
+public/             # Favicon, iconos PNG, og-image.png y site.webmanifest
+
+vite-plugin-seo.ts  # Metadatos, JSON-LD, sitemap.xml, robots.txt y perfil.html
 ```
 
 Para cambiar el orden o los enlaces del menú y del footer, edita `src/data/navigation.ts`. Cada `sectionId` debe coincidir con el `id` de la sección correspondiente en la landing.
@@ -213,7 +217,27 @@ dist/
 
 La carpeta `dist` puede publicarse en un hosting compatible con sitios estáticos.
 
-Como el sitio usa React Router, el hosting debe redirigir todas las rutas a `index.html` para que `/perfil` funcione al recargar o al abrirse desde un enlace directo. Por ejemplo, en Netlify con un archivo `public/_redirects` que contenga `/* /index.html 200`, o en Vercel con una regla de *rewrite* equivalente.
+La compilación genera `perfil.html` con el título, la descripción y los datos estructurados propios del perfil. Los hostings con URLs limpias (Netlify, Vercel con `cleanUrls`, Cloudflare Pages, GitHub Pages) lo sirven automáticamente en `/perfil`. Para cualquier otra ruta, configura el hosting para redirigir a `index.html`, por ejemplo en Netlify con un archivo `public/_redirects` que contenga `/* /index.html 200`.
+
+## SEO
+
+El posicionamiento se genera automáticamente al compilar con el plugin `vite-plugin-seo.ts`, a partir de `src/data/seo.ts`:
+
+- Título, descripción, palabras clave y URL canónica por página (inicio y perfil).
+- Etiquetas Open Graph y Twitter con la imagen `public/og-image.png` (1200×630) para las vistas previas en WhatsApp, LinkedIn, Facebook y X.
+- Datos estructurados JSON-LD (schema.org): `ProfessionalService` con los servicios, contacto y ubicación, `WebSite`, `Person` y `ProfilePage` con migas de pan.
+- `robots.txt` y `sitemap.xml`.
+- Iconos PNG y `site.webmanifest` para móviles.
+- El componente `RouteSeo` actualiza el título y los metadatos al navegar entre páginas sin recargar.
+
+Para cambiar los textos que aparecen en Google, edita `src/data/seo.ts`. Recomendación: títulos de hasta 60 caracteres y descripciones de hasta 160.
+
+Después de publicar el sitio:
+
+1. Registra el dominio en [Google Search Console](https://search.google.com/search-console) y envía `https://tu-dominio.com/sitemap.xml`.
+2. Haz lo mismo en [Bing Webmaster Tools](https://www.bing.com/webmasters) (también alimenta a DuckDuckGo y Yahoo).
+3. Crea o reclama el perfil de empresa en [Google Business Profile](https://business.google.com) con la dirección de Garzón, Huila, para aparecer en búsquedas locales y en Google Maps.
+4. Valida los datos estructurados con la [Prueba de resultados enriquecidos](https://search.google.com/test/rich-results).
 
 ## Recomendaciones de seguridad
 

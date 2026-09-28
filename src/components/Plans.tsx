@@ -86,16 +86,9 @@ export default function Plans() {
                 </div>
               )}
 
-              <div className="mb-6">
+              <div className="mb-6 pb-6 border-b border-white/5">
                 <h3 className="text-lg font-bold text-white tracking-wider font-mono">{plan.name}</h3>
                 <p className="mt-2 text-sm text-gray-text leading-relaxed">{plan.description}</p>
-              </div>
-
-              <div className="mb-6 pb-6 border-b border-white/5">
-                <span className="font-mono text-xs text-gray-text/75">Precio</span>
-                <p className="text-2xl font-bold text-white mt-1">
-                  <span className="text-gray-text/75">[Por definir]</span>
-                </p>
               </div>
 
               <ul className="space-y-3 mb-8">

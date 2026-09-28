@@ -1,0 +1,17 @@
+{
+  "name": "Alsoft-Cloud · Ciberseguridad e Infraestructura TI",
+  "short_name": "Alsoft-Cloud",
+  "description": "Ciberseguridad, infraestructura TI, redes, CCTV, desarrollo de software y consultoría para empresas en Colombia.",
+  "lang": "es-CO",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#050706",
+  "theme_color": "#050706",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

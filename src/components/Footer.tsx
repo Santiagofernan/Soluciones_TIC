@@ -34,32 +34,34 @@ export default function Footer() {
           {/* Contact */}
           <div className="sm:col-span-1">
             <span className="font-mono text-[10px] text-gray-text/75 tracking-widest uppercase block mb-4">Contacto</span>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2.5 text-sm text-gray-text">
-                <MessageCircle className="w-4 h-4 text-neon-primary/75 flex-shrink-0" />
-                <a
-                  href="https://wa.me/573208033546"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="min-w-0 leading-relaxed hover:text-neon-light transition-colors"
-                >
-                  WhatsApp — 320 8033546
-                </a>
-              </li>
-              <li className="flex items-start gap-2.5 text-sm text-gray-text">
-                <Mail className="w-4 h-4 text-neon-primary/75 flex-shrink-0" />
-                <a
-                  href="mailto:contacto.alsoft@gmail.com"
-                  className="min-w-0 leading-relaxed hover:text-neon-light transition-colors"
-                >
-                  contacto.alsoft@gmail.com
-                </a>
-              </li>
-              <li className="flex items-start gap-2.5 text-sm text-gray-text">
-                <MapPin className="w-4 h-4 text-neon-primary/75 flex-shrink-0" />
-                <span className="min-w-0 leading-relaxed">Garzón, Huila, Colombia</span>
-              </li>
-            </ul>
+            <address className="not-italic">
+              <ul className="space-y-3">
+                <li className="flex items-start gap-2.5 text-sm text-gray-text">
+                  <MessageCircle className="w-4 h-4 text-neon-primary/75 flex-shrink-0" />
+                  <a
+                    href="https://wa.me/573208033546"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="min-w-0 leading-relaxed hover:text-neon-light transition-colors"
+                  >
+                    WhatsApp — 320 8033546
+                  </a>
+                </li>
+                <li className="flex items-start gap-2.5 text-sm text-gray-text">
+                  <Mail className="w-4 h-4 text-neon-primary/75 flex-shrink-0" />
+                  <a
+                    href="mailto:contacto.alsoft@gmail.com"
+                    className="min-w-0 leading-relaxed hover:text-neon-light transition-colors"
+                  >
+                    contacto.alsoft@gmail.com
+                  </a>
+                </li>
+                <li className="flex items-start gap-2.5 text-sm text-gray-text">
+                  <MapPin className="w-4 h-4 text-neon-primary/75 flex-shrink-0" />
+                  <span className="min-w-0 leading-relaxed">Garzón, Huila, Colombia</span>
+                </li>
+              </ul>
+            </address>
           </div>
         </div>
 

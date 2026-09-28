@@ -88,7 +88,7 @@ function ProfileHero() {
         <div className="absolute inset-0 tech-grid-fine opacity-30 pointer-events-none" aria-hidden="true" />
 
         <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center">
-          <ProfileAvatar />
+          <ProfileBadge />
           <div className="min-w-0">
             <span className="inline-flex items-center gap-2 rounded-full border border-neon-primary/25 bg-neon-primary/[0.06] px-3 py-1 font-mono text-[10px] tracking-[0.18em] text-neon-light uppercase">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-neon-primary" />
@@ -181,35 +181,31 @@ function ProfileHero() {
   );
 }
 
-function ProfileAvatar() {
-  const [imageFailed, setImageFailed] = useState(false);
-  const initials = `${profile.firstName[0] ?? ''}${profile.lastName[0] ?? ''}`;
-
+function ProfileBadge() {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.8, rotate: -6 }}
+      animate={{ opacity: 1, scale: 1, rotate: 0 }}
       transition={{ type: 'spring', stiffness: 220, damping: 18, delay: 0.15 }}
-      whileHover={{ scale: 1.04 }}
-      className="relative h-28 w-28 shrink-0 sm:h-32 sm:w-32"
+      whileHover={{ scale: 1.05, rotate: -2 }}
+      className="group relative h-28 w-28 shrink-0 sm:h-32 sm:w-32"
+      role="img"
+      aria-label="TIC"
     >
-      <span className="absolute -inset-[3px] overflow-hidden rounded-full" aria-hidden="true">
+      <span className="absolute -inset-3 rounded-[2rem] bg-neon-primary/15 blur-2xl transition-opacity duration-300 group-hover:bg-neon-primary/25" aria-hidden="true" />
+      <span className="absolute -inset-[3px] overflow-hidden rounded-[1.75rem]" aria-hidden="true">
         <span className="brand-ring absolute -inset-1/2" />
       </span>
-      <div className="relative h-full w-full overflow-hidden rounded-full border-4 border-black-secondary bg-black-surface">
-        {imageFailed ? (
-          <span className="flex h-full w-full items-center justify-center text-3xl font-bold text-neon-primary">{initials}</span>
-        ) : (
-          <img
-            src={profile.photo}
-            alt={toTitleCase(profile.fullName)}
-            referrerPolicy="no-referrer"
-            onError={() => setImageFailed(true)}
-            className="h-full w-full object-cover"
-          />
-        )}
+      <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-3xl border-4 border-black-secondary bg-gradient-to-br from-black-surface via-black-secondary to-black-primary">
+        <div className="absolute inset-0 tech-grid-fine opacity-40" aria-hidden="true" />
+        <span className="absolute left-2.5 top-2.5 h-3 w-3 border-l-2 border-t-2 border-neon-primary/60" aria-hidden="true" />
+        <span className="absolute bottom-2.5 right-2.5 h-3 w-3 border-b-2 border-r-2 border-neon-primary/60" aria-hidden="true" />
+        <span className="brand-shimmer relative font-mono text-4xl font-bold tracking-[0.12em] sm:text-5xl" aria-hidden="true">
+          TIC
+        </span>
+        <span className="relative mt-1.5 h-px w-10 bg-gradient-to-r from-transparent via-neon-primary to-transparent transition-all duration-300 group-hover:w-14" aria-hidden="true" />
       </div>
-      <span className="absolute bottom-1.5 right-1.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-black-secondary bg-neon-primary" title="Disponible">
+      <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-black-secondary bg-neon-primary" title="Disponible">
         <span className="h-1.5 w-1.5 animate-ping rounded-full bg-white/80" />
       </span>
     </motion.div>

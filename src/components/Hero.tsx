@@ -105,7 +105,7 @@ export default function Hero() {
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="mt-7 text-sm sm:text-base text-gray-text max-w-md leading-relaxed"
                 >
-                  Diseñamos, implementamos y protegemos la tecnología de empresas que necesitan una infraestructura estable, segura y preparada para crecer.
+                  Diseñamos, implementamos y protegemos la tecnología de empresas en el Huila y toda Colombia que necesitan una infraestructura estable, segura y preparada para crecer.
                 </motion.p>
 
                 {/* CTAs */}
