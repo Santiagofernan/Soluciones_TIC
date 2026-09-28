@@ -43,7 +43,7 @@ Tec_J es una landing page moderna, responsive e interactiva orientada a servicio
 
 Antes de ejecutar el proyecto, debes tener instalado:
 
-- Node.js
+- Node.js 18 o superior (recomendado 20)
 - npm
 - Git, opcional para control de versiones
 
@@ -215,9 +215,31 @@ Los archivos generados se encontrarán normalmente en:
 dist/
 ```
 
-La carpeta `dist` puede publicarse en un hosting compatible con sitios estáticos.
+La carpeta `dist` puede publicarse en un hosting compatible con sitios estáticos. El proyecto ya incluye la configuración para los dos más comunes:
 
-La compilación genera `perfil.html` con el título, la descripción y los datos estructurados propios del perfil. Los hostings con URLs limpias (Netlify, Vercel con `cleanUrls`, Cloudflare Pages, GitHub Pages) lo sirven automáticamente en `/perfil`. Para cualquier otra ruta, configura el hosting para redirigir a `index.html`, por ejemplo en Netlify con un archivo `public/_redirects` que contenga `/* /index.html 200`.
+### Vercel (`vercel.json`)
+
+1. Importa el repositorio en [vercel.com/new](https://vercel.com/new). Detecta Vite automáticamente.
+2. En *Settings → Environment Variables* agrega `VITE_FORMSPREE_FORM_ID` y `VITE_SITE_URL`.
+3. Despliega. Cada `git push` a `main` vuelve a publicar el sitio.
+
+### Netlify (`netlify.toml`)
+
+1. En [app.netlify.com](https://app.netlify.com) elige *Add new site → Import an existing project* y conecta el repositorio.
+2. El comando (`npm run build`) y la carpeta (`dist`) se leen de `netlify.toml`.
+3. En *Site configuration → Environment variables* agrega `VITE_FORMSPREE_FORM_ID` y `VITE_SITE_URL`.
+
+Ambas configuraciones sirven `perfil.html` en `/perfil`, redirigen cualquier otra ruta a la aplicación, guardan en caché los archivos de `assets/` y añaden cabeceras básicas de seguridad.
+
+> Las variables `VITE_` se leen al compilar. Si las cambias en el hosting, vuelve a desplegar para que tomen efecto.
+
+### Lista de verificación antes de publicar
+
+1. `npm run typecheck`, `npm run lint` y `npm run build` terminan sin errores.
+2. `VITE_SITE_URL` apunta al dominio real (la compilación avisa si falta).
+3. `VITE_FORMSPREE_FORM_ID` está configurado y el formulario envía correctamente.
+4. El dominio propio está conectado en el hosting con HTTPS.
+5. El sitemap está enviado en Google Search Console (ver sección SEO).
 
 ## SEO
 

@@ -4,7 +4,8 @@ import { resources } from '@/data/resources';
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
-  return date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+  // Dates are "YYYY-MM-DD" (parsed as UTC); without timeZone they show the previous day in Colombia.
+  return date.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 }
 
 export default function Resources() {

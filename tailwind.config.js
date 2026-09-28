@@ -17,6 +17,10 @@ export default {
           text: '#B2BDB6',
         },
       },
+      opacity: {
+        8: '0.08',
+        12: '0.12',
+      },
       fontFamily: {
         sans: ['Space Grotesk', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],

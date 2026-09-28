@@ -119,9 +119,9 @@ export default function Contact() {
                 <ArrowRight className="w-4 h-4 text-neon-primary ml-2 group-hover:translate-x-1 transition-transform" />
               </a>
 
-              <div className="flex items-center gap-3 px-5 py-3.5 rounded-xl border border-white/8 bg-white/[0.02]">
-                <div className="w-2 h-2 rounded-full bg-neon-primary/50" />
-                <span className="font-mono text-xs text-gray-text/75">contacto.alsoft@gmail.com</span>
+              <div className="flex w-fit max-w-full items-center gap-3 px-5 py-3.5 rounded-xl border border-white/8 bg-white/[0.02]">
+                <div className="w-2 h-2 flex-shrink-0 rounded-full bg-neon-primary/50" />
+                <span className="min-w-0 break-all font-mono text-xs text-gray-text/75">contacto.alsoft@gmail.com</span>
               </div>
             </div>
           </motion.div>

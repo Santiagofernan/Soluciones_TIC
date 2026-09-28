@@ -90,10 +90,10 @@ export default function Hero() {
                   transition={{ duration: 0.7, delay: 0.2 }}
                   className="text-[2.5rem] sm:text-5xl lg:text-6xl xl:text-[4.5rem] font-bold leading-[1.05] tracking-tight"
                 >
-                  <span className="text-white">El sistema </span>
-                  <span className="text-white">nervioso</span>
+                  <span className="text-white">El mejor sistema </span>
+                  <span className="text-white">tecnológico que</span>
                   <br />
-                  <span className="text-white">tecnológico de tu</span>
+                  <span className="text-white">necesitas para tu</span>
                   <br />
                   <span className="text-neon-primary neon-text">EMPRESA.</span>
                 </motion.h1>
