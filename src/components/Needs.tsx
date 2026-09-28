@@ -4,7 +4,7 @@ import { getIcon } from '@/lib/icons';
 
 export default function Needs() {
   return (
-    <section id="soluciones" className="relative py-24 sm:py-32">
+    <section id="necesidades" className="relative py-24 sm:py-32">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

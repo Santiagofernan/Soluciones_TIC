@@ -1,13 +1,6 @@
 import { MessageCircle, Mail, MapPin } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
-const links = [
-  { label: 'Servicios', href: '/#servicios' },
-  { label: 'Soluciones', href: '/#soluciones' },
-  { label: 'Proyectos', href: '/#proyectos' },
-  { label: 'Recursos', href: '/#recursos' },
-  { label: 'Contacto', href: '/#contacto' },
-];
+import BrandLogo from '@/components/BrandLogo';
+import { navItems } from '@/data/navigation';
 
 export default function Footer() {
   return (
@@ -18,15 +11,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-9 mb-12 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-12 lg:grid-cols-4 lg:gap-10">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-2">
-            <Link to="/" className="mb-4 flex items-center gap-2.5 group">
-              <div className="relative w-8 h-8 flex items-center justify-center">
-                <div className="absolute inset-0 border border-neon-primary/30 rounded-md" />
-                <div className="w-2 h-2 rounded-full bg-neon-primary shadow-[0_0_12px_rgba(25,229,107,0.6)]" />
-              </div>
-              <span className="font-semibold text-white tracking-wide text-lg transition-colors group-hover:text-neon-light">
-                Alsoft-<span className="text-neon-primary">Cloud</span>
-              </span>
-            </Link>
+            <BrandLogo className="mb-4" />
             <p className="text-sm text-gray-text max-w-xs leading-relaxed">
               Soluciones TI · Ciberseguridad · Infraestructura
             </p>
@@ -36,10 +21,10 @@ export default function Footer() {
           <div className="sm:col-span-1">
             <span className="font-mono text-[10px] text-gray-text/75 tracking-widest uppercase block mb-4">Navegación</span>
             <ul className="space-y-2.5">
-              {links.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} className="text-sm text-gray-text hover:text-neon-light transition-colors">
-                    {link.label}
+              {navItems.map((item) => (
+                <li key={item.sectionId}>
+                  <a href={`/#${item.sectionId}`} className="text-sm text-gray-text hover:text-neon-light transition-colors">
+                    {item.label}
                   </a>
                 </li>
               ))}
@@ -52,15 +37,27 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5 text-sm text-gray-text">
                 <MessageCircle className="w-4 h-4 text-neon-primary/75 flex-shrink-0" />
-                <span className="min-w-0 leading-relaxed">WhatsApp — [por configurar]</span>
+                <a
+                  href="https://wa.me/573208033546"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="min-w-0 leading-relaxed hover:text-neon-light transition-colors"
+                >
+                  WhatsApp — 320 8033546
+                </a>
               </li>
               <li className="flex items-start gap-2.5 text-sm text-gray-text">
                 <Mail className="w-4 h-4 text-neon-primary/75 flex-shrink-0" />
-                <span className="min-w-0 leading-relaxed">Correo — [por configurar]</span>
+                <a
+                  href="mailto:contacto.alsoft@gmail.com"
+                  className="min-w-0 leading-relaxed hover:text-neon-light transition-colors"
+                >
+                  contacto.alsoft@gmail.com
+                </a>
               </li>
               <li className="flex items-start gap-2.5 text-sm text-gray-text">
                 <MapPin className="w-4 h-4 text-neon-primary/75 flex-shrink-0" />
-                <span className="min-w-0 leading-relaxed">Ubicación — [por configurar]</span>
+                <span className="min-w-0 leading-relaxed">Garzón, Huila, Colombia</span>
               </li>
             </ul>
           </div>

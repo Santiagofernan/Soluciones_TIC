@@ -41,7 +41,7 @@ export default function Philosophy() {
               whileHover={{ y: -4 }}
               className="group relative rounded-xl glass-card py-8 px-4 hover:border-neon-primary/25 transition-all"
             >
-              <div className="absolute top-3 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-neon-primary/40 group-hover:bg-neon-primary group-hover:shadow-[0_0_8px_rgba(25,229,107,0.6)] transition-all" />
+              <div className="absolute top-3 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-neon-primary/40 group-hover:bg-neon-primary group-hover:shadow-[0_0_8px_rgba(55,190,118,0.6)] transition-all" />
               <span className="font-mono text-sm sm:text-base text-white tracking-wider group-hover:text-neon-light transition-colors">
                 {concept}
               </span>

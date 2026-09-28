@@ -44,7 +44,7 @@ const plans = [
 
 export default function Plans() {
   return (
-    <section className="relative py-24 sm:py-32">
+    <section id="planes" className="relative py-24 sm:py-32">
       <div className="absolute inset-0 tech-grid-fine opacity-20 pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">

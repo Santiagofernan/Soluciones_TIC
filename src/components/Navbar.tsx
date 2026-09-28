@@ -1,20 +1,43 @@
 import { useState, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, User } from 'lucide-react';
+import BrandLogo from '@/components/BrandLogo';
+import { navItems } from '@/data/navigation';
 
-const navLinks = [
-  { label: 'Servicios', href: '/#servicios' },
-  { label: 'Soluciones', href: '/#soluciones' },
-  { label: 'Metodología', href: '/#metodologia' },
-  { label: 'Proyectos', href: '/#proyectos' },
-  { label: 'Recursos', href: '/#recursos' },
-  { label: 'Contacto', href: '/#contacto' },
-];
+function useActiveSection() {
+  const { pathname } = useLocation();
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+
+  useEffect(() => {
+    setActiveSection(null);
+    if (pathname !== '/') return;
+
+    // The hero is observed too so scrolling back to the top clears the highlight.
+    const sections = ['top', ...navItems.map((item) => item.sectionId)]
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  return activeSection;
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const activeSection = useActiveSection();
   const isMobileViewport = typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches;
 
   useEffect(() => {
@@ -53,28 +76,30 @@ export default function Navbar() {
       >
         <div className="box-border flex h-16 w-full max-w-7xl min-w-0 mx-auto items-center justify-between px-4 sm:h-18 sm:px-8">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="relative w-8 h-8 flex items-center justify-center">
-              <div className="absolute inset-0 border border-neon-primary/30 rounded-md group-hover:border-neon-primary/60 transition-colors" />
-              <div className="w-2 h-2 rounded-full bg-neon-primary shadow-[0_0_12px_rgba(25,229,107,0.6)] group-hover:shadow-[0_0_16px_rgba(25,229,107,0.8)] transition-all" />
-            </div>
-            <span className="font-semibold text-white tracking-wide text-lg">
-              Alsoft-<span className="text-neon-primary">Cloud</span>
-            </span>
-          </Link>
+          <BrandLogo />
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm text-gray-text hover:text-neon-light transition-colors duration-200 relative group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-neon-primary group-hover:w-full transition-all duration-300" />
-              </a>
-            ))}
+          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.sectionId;
+              return (
+                <a
+                  key={item.sectionId}
+                  href={`/#${item.sectionId}`}
+                  aria-current={isActive ? 'location' : undefined}
+                  className={`relative group whitespace-nowrap text-sm transition-colors duration-200 ${
+                    isActive ? 'text-neon-light' : 'text-gray-text hover:text-neon-light'
+                  }`}
+                >
+                  {item.label}
+                  <span
+                    className={`absolute -bottom-1 left-0 h-px bg-neon-primary transition-all duration-300 ${
+                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}
+                  />
+                </a>
+              );
+            })}
           </div>
 
           {/* CTA + mobile toggle */}
@@ -82,7 +107,7 @@ export default function Navbar() {
             <NavLink
               to="/perfil"
               className={({ isActive }) =>
-                `hidden sm:inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg border transition-all duration-200 ${
+                `hidden sm:inline-flex items-center gap-2 whitespace-nowrap px-4 py-2.5 text-sm font-medium rounded-lg border transition-all duration-200 ${
                   isActive
                     ? 'text-neon-light border-neon-primary/40 bg-neon-primary/10'
                     : 'text-white border-white/15 hover:border-neon-primary/40 hover:text-neon-light'
@@ -94,7 +119,7 @@ export default function Navbar() {
             </NavLink>
             <a
               href="/#contacto"
-              className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-black-primary bg-neon-primary rounded-lg hover:bg-neon-light transition-all duration-200 hover:shadow-[0_0_20px_rgba(25,229,107,0.4)]"
+              className="hidden sm:inline-flex lg:hidden xl:inline-flex items-center gap-2 whitespace-nowrap px-5 py-2.5 text-sm font-medium text-black-primary bg-neon-primary rounded-lg hover:bg-neon-light transition-all duration-200 hover:shadow-[0_0_20px_rgba(55,190,118,0.4)]"
             >
               Solicitar diagnóstico
               <ArrowRight className="w-4 h-4" />
@@ -129,31 +154,32 @@ export default function Navbar() {
               className="absolute right-0 top-0 bottom-0 w-72 bg-black-secondary border-l border-neon-primary/10 p-6 flex flex-col"
             >
               <div className="flex items-center justify-between mb-10">
-                <Link
-                  to="/"
-                  onClick={() => setMobileOpen(false)}
-                  className="font-semibold text-white tracking-wide"
-                >
-                  Alsoft-Cloud<span className="text-neon-primary"></span>
-                </Link>
+                <BrandLogo size="sm" onNavigate={() => setMobileOpen(false)} />
                 <button onClick={() => setMobileOpen(false)} className="text-gray-text hover:text-white" aria-label="Cerrar menú">
                   <X className="w-6 h-6" />
                 </button>
               </div>
               <nav className="flex flex-col gap-1">
-                {navLinks.map((link, i) => (
-                  <motion.a
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 * i + 0.1 }}
-                    className="py-3 text-lg text-gray-text hover:text-neon-light border-b border-white/5 transition-colors"
-                  >
-                    {link.label}
-                  </motion.a>
-                ))}
+                {navItems.map((item, i) => {
+                  const isActive = activeSection === item.sectionId;
+                  return (
+                    <motion.a
+                      key={item.sectionId}
+                      href={`/#${item.sectionId}`}
+                      aria-current={isActive ? 'location' : undefined}
+                      onClick={() => setMobileOpen(false)}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.05 * i + 0.1 }}
+                      className={`flex items-center justify-between py-3 text-lg border-b border-white/5 transition-colors ${
+                        isActive ? 'text-neon-light' : 'text-gray-text hover:text-neon-light'
+                      }`}
+                    >
+                      {item.label}
+                      {isActive && <span className="h-1.5 w-1.5 rounded-full bg-neon-primary" />}
+                    </motion.a>
+                  );
+                })}
               </nav>
               <div className="mt-auto space-y-3">
                 <NavLink

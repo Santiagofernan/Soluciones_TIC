@@ -10,8 +10,8 @@ export default {
           surface: '#111814',
         },
         neon: {
-          primary: '#19E56B',
-          light: '#8AFFB5',
+          primary: '#37BE76',
+          light: '#A0E4BC',
         },
         gray: {
           text: '#B2BDB6',

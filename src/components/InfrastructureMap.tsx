@@ -7,27 +7,23 @@ interface EcosystemNode {
   label: string;
   icon: typeof Globe;
   info: string;
-  level: number;
 }
 
 const nodes: EcosystemNode[] = [
-  { id: 'internet', label: 'INTERNET', icon: Globe, info: 'Conexión externa · Cortafuegos perimetral', level: 0 },
-  { id: 'firewall', label: 'CORTAFUEGOS', icon: Shield, info: 'Riesgos · Vulnerabilidades · MFA · Copias de seguridad · Continuidad', level: 1 },
-  { id: 'network', label: 'REDES', icon: Network, info: 'VLAN · Cortafuegos · VPN · Wi-Fi empresarial · Segmentación', level: 2 },
-  { id: 'servers', label: 'SERVIDORES', icon: Server, info: 'Instalación · Migración · Virtualización · Windows Server · Linux', level: 3 },
-  { id: 'users', label: 'USUARIOS', icon: Users, info: 'Active Directory · Gestión de permisos · MFA', level: 3 },
-  { id: 'software', label: 'SOFTWARE', icon: Code2, info: 'Sistemas internos · Automatización · Aplicaciones web', level: 3 },
-  { id: 'cctv', label: 'CCTV', icon: Cctv, info: 'Cámaras IP · NVR/DVR · Acceso remoto · Monitoreo', level: 3 },
+  { id: 'internet', label: 'INTERNET', icon: Globe, info: 'Conexión externa · Cortafuegos perimetral' },
+  { id: 'firewall', label: 'CORTAFUEGOS', icon: Shield, info: 'Riesgos · Vulnerabilidades · MFA · Copias de seguridad · Continuidad' },
+  { id: 'network', label: 'REDES', icon: Network, info: 'VLAN · Cortafuegos · VPN · Wi-Fi empresarial · Segmentación' },
+  { id: 'servers', label: 'SERVIDORES', icon: Server, info: 'Instalación · Migración · Virtualización · Windows Server · Linux' },
+  { id: 'users', label: 'USUARIOS', icon: Users, info: 'Active Directory · Gestión de permisos · MFA' },
+  { id: 'software', label: 'SOFTWARE', icon: Code2, info: 'Sistemas internos · Automatización · Aplicaciones web' },
+  { id: 'cctv', label: 'CCTV', icon: Cctv, info: 'Cámaras IP · NVR/DVR · Acceso remoto · Monitoreo' },
 ];
-
-const childNodes = nodes.filter((n) => n.level === 3);
 
 export default function InfrastructureMap() {
   const [active, setActive] = useState<string | null>(null);
-  const activeNode = nodes.find((n) => n.id === active);
 
   return (
-    <section className="relative py-24 sm:py-32 overflow-hidden">
+    <section className="relative py-24 sm:py-32 overflow-visible">
       <div className="absolute inset-0 tech-grid-bg opacity-30 pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-neon-primary/5 blur-[120px] pointer-events-none" />
 
@@ -48,145 +44,133 @@ export default function InfrastructureMap() {
           </p>
         </motion.div>
 
-        {/* Desktop: tree layout */}
-        <div className="hidden md:block relative">
-          <div className="flex flex-col items-center gap-0">
-            {/* INTERNET */}
-            <EcosystemNodeButton node={nodes[0]} active={active} setActive={setActive} />
+        {/* Desktop: horizontal line */}
+        <div className="hidden md:block">
+          <div className="relative flex items-start justify-between gap-1">
+            {/* Connecting line behind nodes */}
+            <div className="absolute top-10 left-[7%] right-[7%] h-px bg-gradient-to-r from-neon-primary/10 via-neon-primary/35 to-neon-primary/10" />
 
-            <Connector vertical />
-
-            {/* CORTAFUEGOS */}
-            <EcosystemNodeButton node={nodes[1]} active={active} setActive={setActive} />
-
-            <Connector vertical />
-
-            {/* REDES */}
-            <EcosystemNodeButton node={nodes[2]} active={active} setActive={setActive} />
-
-            {/* Branch lines */}
-            <div className="relative w-full max-w-3xl mt-6">
-              <svg className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-12" viewBox="0 0 600 48" fill="none" preserveAspectRatio="none">
-                <line x1="300" y1="0" x2="300" y2="12" stroke="rgba(25,229,107,0.3)" strokeWidth="1.5" />
-                <line x1="75" y1="24" x2="525" y2="24" stroke="rgba(25,229,107,0.3)" strokeWidth="1.5" />
-                <line x1="75" y1="24" x2="75" y2="48" stroke="rgba(25,229,107,0.3)" strokeWidth="1.5" />
-                <line x1="225" y1="24" x2="225" y2="48" stroke="rgba(25,229,107,0.3)" strokeWidth="1.5" />
-                <line x1="375" y1="24" x2="375" y2="48" stroke="rgba(25,229,107,0.3)" strokeWidth="1.5" />
-                <line x1="525" y1="24" x2="525" y2="48" stroke="rgba(25,229,107,0.3)" strokeWidth="1.5" />
-              </svg>
-
-              <div className="grid grid-cols-4 gap-4 pt-14">
-                {childNodes.map((node) => (
-                  <div key={node.id} className="flex justify-center">
-                    <EcosystemNodeButton node={node} active={active} setActive={setActive} small />
-                  </div>
-                ))}
-              </div>
-            </div>
+            {nodes.map((node, i) => (
+              <HorizontalNode
+                key={node.id}
+                node={node}
+                index={i}
+                isActive={active === node.id}
+                onEnter={() => setActive(node.id)}
+                onLeave={() => setActive(null)}
+                onToggle={() => setActive(active === node.id ? null : node.id)}
+              />
+            ))}
           </div>
-
-          {/* Info panel */}
-          <AnimatePresence mode="wait">
-            {activeNode && (
-              <motion.div
-                key={activeNode.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="mt-12 max-w-2xl mx-auto"
-              >
-                <div className="rounded-xl glass-card neon-border p-6 text-center">
-                  <span className="font-mono text-xs text-neon-primary tracking-widest">{activeNode.label}</span>
-                  <p className="mt-3 text-sm text-gray-text leading-relaxed">{activeNode.info}</p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
 
-        {/* Mobile: vertical flow */}
-        <div className="md:hidden flex flex-col items-center gap-3">
-          {nodes.map((node, i) => (
-            <div key={node.id} className="flex flex-col items-center gap-3 w-full">
-              <EcosystemNodeButton node={node} active={active} setActive={setActive} small />
-              {i < nodes.length - 1 && <Connector vertical short />}
-            </div>
-          ))}
-
-          <AnimatePresence mode="wait">
-            {activeNode && (
-              <motion.div
-                key={activeNode.id}
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.2 }}
-                className="w-full mt-3"
-              >
-                <div className="rounded-xl glass-card neon-border p-4 text-center">
-                  <span className="font-mono text-xs text-neon-primary tracking-widest">{activeNode.label}</span>
-                  <p className="mt-2 text-xs text-gray-text leading-relaxed">{activeNode.info}</p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+        {/* Mobile: horizontal scroll */}
+        <div className="md:hidden -mx-5 px-5 overflow-x-auto pb-2 scrollbar-thin">
+          <div className="relative flex items-start gap-3 min-w-max px-1">
+            <div className="absolute top-9 left-8 right-8 h-px bg-neon-primary/25" />
+            {nodes.map((node, i) => (
+              <HorizontalNode
+                key={node.id}
+                node={node}
+                index={i}
+                isActive={active === node.id}
+                onEnter={() => setActive(node.id)}
+                onLeave={() => setActive(null)}
+                onToggle={() => setActive(active === node.id ? null : node.id)}
+                compact
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function EcosystemNodeButton({
+function HorizontalNode({
   node,
-  active,
-  setActive,
-  small,
+  index,
+  isActive,
+  onEnter,
+  onLeave,
+  onToggle,
+  compact,
 }: {
   node: EcosystemNode;
-  active: string | null;
-  setActive: (id: string | null) => void;
-  small?: boolean;
+  index: number;
+  isActive: boolean;
+  onEnter: () => void;
+  onLeave: () => void;
+  onToggle: () => void;
+  compact?: boolean;
 }) {
   const Icon = node.icon;
-  const isActive = active === node.id;
 
-  return (
-    <motion.button
-      onMouseEnter={() => setActive(node.id)}
-      onMouseLeave={() => setActive(null)}
-      onClick={() => setActive(isActive ? null : node.id)}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.97 }}
-      className={`relative flex flex-col items-center gap-2 rounded-xl border transition-all duration-300 ${
-        small ? 'px-4 py-3' : 'px-6 py-4'
-      } ${
-        isActive
-          ? 'border-neon-primary/60 bg-neon-primary/10 shadow-[0_0_24px_rgba(25,229,107,0.15)]'
-          : 'border-neon-primary/15 bg-black-secondary/60 hover:border-neon-primary/35'
-      }`}
-    >
-      <Icon className={`${small ? 'w-5 h-5' : 'w-6 h-6'} ${isActive ? 'text-neon-primary' : 'text-neon-primary/70'} transition-colors`} />
-      <span className={`font-mono text-[10px] tracking-wider ${isActive ? 'text-neon-light' : 'text-gray-text'}`}>{node.label}</span>
-      {isActive && (
-        <motion.div
-          layoutId={`glow-${node.level}`}
-          className="absolute inset-0 rounded-xl bg-neon-primary/5 blur-xl pointer-events-none"
-        />
-      )}
-    </motion.button>
-  );
-}
-
-function Connector({ vertical, short }: { vertical?: boolean; short?: boolean }) {
   return (
     <motion.div
-      initial={{ scaleY: 0, scaleX: 0 }}
-      whileInView={{ scaleY: 1, scaleX: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
-      className={`${vertical ? `w-px ${short ? 'h-6' : 'h-10'}` : 'h-px w-12'} bg-gradient-to-b from-neon-primary/40 to-neon-primary/10`}
-      style={{ transformOrigin: 'top' }}
-    />
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.4, delay: index * 0.06 }}
+      className={`relative z-10 flex flex-col items-center ${compact ? 'w-[112px]' : 'flex-1 min-w-0 max-w-[140px]'}`}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+    >
+      <motion.button
+        type="button"
+        onClick={onToggle}
+        whileHover={{ scale: 1.06 }}
+        whileTap={{ scale: 0.97 }}
+        className={`relative flex flex-col items-center gap-2 rounded-xl border transition-all duration-300 ${
+          compact ? 'px-3 py-3 w-full' : 'px-3 py-3.5 w-full'
+        } ${
+          isActive
+            ? 'border-neon-primary/70 bg-neon-primary/10 shadow-[0_0_24px_rgba(55,190,118,0.22)]'
+            : 'border-neon-primary/15 bg-black-secondary/70 hover:border-neon-primary/40'
+        }`}
+      >
+        <Icon
+          className={`w-5 h-5 transition-colors ${
+            isActive ? 'text-neon-primary' : 'text-neon-primary/70'
+          }`}
+        />
+        <span
+          className={`font-mono text-[9px] sm:text-[10px] tracking-wider text-center leading-tight ${
+            isActive ? 'text-neon-light' : 'text-gray-text'
+          }`}
+        >
+          {node.label}
+        </span>
+        {isActive && (
+          <div className="absolute inset-0 rounded-xl bg-neon-primary/5 blur-xl pointer-events-none" />
+        )}
+      </motion.button>
+
+      {/* Dot on the line */}
+      <div
+        className={`mt-3 w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+          isActive
+            ? 'bg-neon-primary shadow-[0_0_8px_rgba(55,190,118,0.8)] scale-125'
+            : 'bg-neon-primary/35'
+        }`}
+      />
+
+      {/* Info under this node */}
+      <div className="mt-3 w-full min-h-[72px]">
+        <AnimatePresence>
+          {isActive && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 4 }}
+              transition={{ duration: 0.2 }}
+              className="rounded-lg border border-neon-primary/25 bg-black-secondary/80 px-2.5 py-3 text-center"
+            >
+              <p className="text-[10px] sm:text-[11px] text-gray-text leading-relaxed">{node.info}</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
   );
 }

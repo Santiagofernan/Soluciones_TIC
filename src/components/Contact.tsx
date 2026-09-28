@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, MessageCircle, Send, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Send, CheckCircle2 } from 'lucide-react';
+import whatsappIcon from '../assets/Icons/whatsapp.webp';
 
 const serviceOptions = [
   'Ciberseguridad',
@@ -13,101 +14,64 @@ const serviceOptions = [
   'Otro',
 ];
 
-type TurnstileWidget = {
-  render: (container: HTMLElement, options: {
-    sitekey: string;
-    theme?: 'light' | 'dark' | 'auto';
-    size?: 'normal' | 'compact' | 'flexible';
-    callback?: (token: string) => void;
-    'expired-callback'?: () => void;
-    'error-callback'?: () => void;
-  }) => string;
-  reset: (widgetId?: string) => void;
-  remove: (widgetId?: string) => void;
-};
-
-type TurnstileWindow = Window & { turnstile?: TurnstileWidget };
-
 export default function Contact() {
   const [selectedService, setSelectedService] = useState<string>('');
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
-  const [captchaToken, setCaptchaToken] = useState('');
-  const captchaRef = useRef<HTMLDivElement>(null);
-  const widgetIdRef = useRef<string | undefined>(undefined);
   const formspreeId = import.meta.env.VITE_FORMSPREE_FORM_ID?.trim();
-  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim();
-
-  useEffect(() => {
-    if (!turnstileSiteKey || !captchaRef.current) return;
-
-    const renderCaptcha = () => {
-      const turnstile = (window as TurnstileWindow).turnstile;
-      if (!turnstile || !captchaRef.current || widgetIdRef.current) return;
-
-      widgetIdRef.current = turnstile.render(captchaRef.current, {
-        sitekey: turnstileSiteKey,
-        theme: 'dark',
-        size: 'flexible',
-        callback: (token) => {
-          setCaptchaToken(token);
-          setSubmitError('');
-        },
-        'expired-callback': () => setCaptchaToken(''),
-        'error-callback': () => {
-          setCaptchaToken('');
-          setSubmitError('No se pudo validar el CAPTCHA. Inténtalo de nuevo.');
-        },
-      });
-    };
-
-    if ((window as TurnstileWindow).turnstile) {
-      renderCaptcha();
-    } else {
-      window.addEventListener('load', renderCaptcha, { once: true });
-    }
-
-    return () => {
-      window.removeEventListener('load', renderCaptcha);
-      const turnstile = (window as TurnstileWindow).turnstile;
-      if (turnstile && widgetIdRef.current) turnstile.remove(widgetIdRef.current);
-      widgetIdRef.current = undefined;
-    };
-  }, [turnstileSiteKey]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitError('');
 
-    if (!formspreeId || !turnstileSiteKey) {
-      setSubmitError('Configura las variables de Formspree y Turnstile para activar el formulario.');
+    if (!formspreeId) {
+      setSubmitError('Configura VITE_FORMSPREE_FORM_ID para activar el formulario.');
       return;
     }
 
-    if (!captchaToken) {
-      setSubmitError('Completa la validación CAPTCHA antes de enviar la solicitud.');
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    // Honeypot: si un bot rellena el campo oculto, fingimos éxito y no enviamos.
+    const honeypot = String(formData.get('_gotcha') ?? '').trim();
+    if (honeypot) {
+      setSubmitted(true);
+      form.reset();
+      setSelectedService('');
       return;
     }
 
+    formData.delete('_gotcha');
     setIsSubmitting(true);
 
     try {
       const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
         method: 'POST',
         headers: { Accept: 'application/json' },
-        body: new FormData(e.currentTarget),
+        body: formData,
       });
 
-      if (!response.ok) throw new Error('Formspree respondió con un error.');
+      if (!response.ok) {
+        const errorBody = await response.json().catch(() => null);
+        console.error('Formspree respondió con un error:', response.status, errorBody);
+        setSubmitError('No se pudo enviar la solicitud. Inténtalo de nuevo.');
+        return;
+      }
 
-      e.currentTarget.reset();
-      setSelectedService('');
-      setCaptchaToken('');
+      await response.json().catch(() => null);
+
+      setSubmitError('');
       setSubmitted(true);
-      const turnstile = (window as TurnstileWindow).turnstile;
-      if (turnstile && widgetIdRef.current) turnstile.reset(widgetIdRef.current);
-    } catch {
+
+      try {
+        form.reset();
+        setSelectedService('');
+      } catch (resetErr) {
+        console.error('Error al limpiar el formulario tras un envío exitoso:', resetErr);
+      }
+    } catch (err) {
+      console.error('Error de red al enviar el formulario a Formspree:', err);
       setSubmitError('No se pudo enviar la solicitud. Inténtalo de nuevo.');
     } finally {
       setIsSubmitting(false);
@@ -121,7 +85,6 @@ export default function Contact() {
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Left: heading */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -137,13 +100,18 @@ export default function Contact() {
               Cuéntanos qué necesita tu empresa y te ayudamos a encontrar una solución.
             </p>
 
-            {/* Direct contact */}
             <div className="mt-10 space-y-4">
               <a
-                href="/#contacto"
+                href="https://wa.me/573208033546"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-5 py-3.5 rounded-xl border border-neon-primary/20 bg-neon-primary/5 hover:bg-neon-primary/10 hover:border-neon-primary/40 transition-all group"
               >
-                <MessageCircle className="w-5 h-5 text-neon-primary" />
+                <img
+                  src={whatsappIcon}
+                  alt="WhatsApp"
+                  className="w-5 h-5 flex-shrink-0 object-contain"
+                />
                 <div>
                   <span className="block text-sm font-medium text-white">Hablar por WhatsApp</span>
                   <span className="block font-mono text-[10px] text-gray-text/75">320 8033546</span>
@@ -153,12 +121,11 @@ export default function Contact() {
 
               <div className="flex items-center gap-3 px-5 py-3.5 rounded-xl border border-white/8 bg-white/[0.02]">
                 <div className="w-2 h-2 rounded-full bg-neon-primary/50" />
-                <span className="font-mono text-xs text-gray-text/75">[Correo por configurar]</span>
+                <span className="font-mono text-xs text-gray-text/75">contacto.alsoft@gmail.com</span>
               </div>
             </div>
           </motion.div>
 
-          {/* Right: form */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -166,7 +133,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="min-w-0 max-w-full"
           >
-            <form onSubmit={handleSubmit} className="box-border w-full min-w-0 max-w-full rounded-2xl glass-card p-6 sm:p-8 space-y-5">
+            <form onSubmit={handleSubmit} className="relative box-border w-full min-w-0 max-w-full rounded-2xl glass-card p-6 sm:p-8 space-y-5">
               {submitted && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -184,17 +151,31 @@ export default function Contact() {
                 </p>
               )}
 
+              {/* Honeypot anti-spam: oculto para humanos, visible para bots */}
+              <div
+                className="absolute -left-[9999px] top-auto h-0 w-0 overflow-hidden opacity-0"
+                aria-hidden="true"
+              >
+                <label htmlFor="gotcha">No rellenar</label>
+                <input
+                  id="gotcha"
+                  type="text"
+                  name="_gotcha"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div className="grid sm:grid-cols-2 gap-4">
                 <FormField label="Nombre" name="name" placeholder="Tu nombre" required />
                 <FormField label="Empresa" name="company" placeholder="Nombre de la empresa" />
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
-                <FormField label="Teléfono / WhatsApp" name="phone" placeholder="Tu teléfono" />
-                <FormField label="Correo" name="email" type="email" placeholder="tu@correo.com" required />
+                <FormField label="Teléfono / WhatsApp" name="phone" placeholder="320 8033546" />
+                <FormField label="Correo" name="email" type="email" placeholder="contacto.alsoft@gmail.com" required />
               </div>
 
-              {/* Service selector */}
               <div>
                 <label className="block text-xs font-mono text-gray-text tracking-wider mb-3">
                   ¿QUÉ NECESITAS?
@@ -217,7 +198,6 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Message */}
               <div>
                 <label className="block text-xs font-mono text-gray-text tracking-wider mb-2">
                   MENSAJE
@@ -232,23 +212,10 @@ export default function Contact() {
 
               <input type="hidden" name="service" value={selectedService} />
 
-              <div
-                className="box-border flex h-[81px] w-full min-w-0 max-w-full items-center overflow-hidden rounded-lg border border-white/8 bg-black-primary/30 px-2 [&_iframe]:!block [&_iframe]:!h-[65px] [&_iframe]:!max-w-full [&_iframe]:!w-full"
-                aria-label="Validación CAPTCHA"
-              >
-                {turnstileSiteKey ? (
-                  <div ref={captchaRef} className="flex h-[65px] w-full min-w-0 max-w-full items-center overflow-hidden" />
-                ) : (
-                  <p className="px-2 text-xs leading-relaxed text-gray-text">
-                    CAPTCHA pendiente de configuración.
-                  </p>
-                )}
-              </div>
-
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-medium text-black-primary bg-neon-primary rounded-xl hover:bg-neon-light disabled:cursor-not-allowed disabled:opacity-60 transition-all duration-200 hover:shadow-[0_0_24px_rgba(25,229,107,0.3)]"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-medium text-black-primary bg-neon-primary rounded-xl hover:bg-neon-light disabled:cursor-not-allowed disabled:opacity-60 transition-all duration-200 hover:shadow-[0_0_24px_rgba(55,190,118,0.3)]"
               >
                 {isSubmitting ? 'Enviando solicitud...' : 'Solicitar diagnóstico'}
                 {!isSubmitting && <Send className="w-4 h-4" />}

@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import PageTransition from '@/components/PageTransition';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import ProblemSection from '@/components/ProblemSection';
@@ -35,27 +35,10 @@ function Home() {
   );
 }
 
-function ScrollManager() {
-  const { pathname, hash } = useLocation();
-
-  useEffect(() => {
-    if (hash) {
-      const el = document.querySelector(hash);
-      if (el) {
-        el.scrollIntoView();
-        return;
-      }
-    }
-    window.scrollTo(0, 0);
-  }, [pathname, hash]);
-
-  return null;
-}
-
 export default function App() {
   return (
     <div className="min-h-screen bg-black-primary text-white">
-      <ScrollManager />
+      <PageTransition />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

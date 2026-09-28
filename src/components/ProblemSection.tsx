@@ -118,7 +118,7 @@ export default function ProblemSection() {
             <div className="flex items-center justify-between gap-4 font-mono text-[9px] tracking-[0.16em]">
               <span className="text-gray-text/75">ESTADO DEL SISTEMA</span>
               <span className="flex items-center gap-2 text-neon-primary/70">
-                <span className="h-1.5 w-1.5 rounded-full bg-neon-primary shadow-[0_0_7px_rgba(25,229,107,0.7)]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-neon-primary shadow-[0_0_7px_rgba(55,190,118,0.7)]" />
                 CONECTADO
               </span>
             </div>
@@ -213,7 +213,7 @@ function DesktopDiagram({
       >
         {nodes.map((node) => {
           const isActive = activeNode === node.id;
-          const opacity = activeNode === null ? 0.15 : isActive ? 0.6 : 0.05;
+          const opacity = activeNode === null ? 0.18 : isActive ? 1 : 0.06;
           const x1 = (center.x / 100) * diagramSize;
           const y1 = (center.y / 100) * diagramSize;
           const x2 = (node.x / 100) * diagramSize;
@@ -221,69 +221,93 @@ function DesktopDiagram({
 
           return (
             <g key={`line-${node.id}`}>
+              {isActive && (
+                <line
+                  x1={x1}
+                  y1={y1}
+                  x2={x2}
+                  y2={y2}
+                  stroke="rgba(55,190,118,0.35)"
+                  strokeWidth="6"
+                  opacity={0.5}
+                  style={{ filter: 'blur(4px)', transition: 'opacity 0.3s ease' }}
+                />
+              )}
               <line
                 x1={x1}
                 y1={y1}
                 x2={x2}
                 y2={y2}
-                stroke="rgba(25,229,107,0.2)"
-                strokeWidth="1"
-                strokeDasharray="3 4"
+                stroke={isActive ? 'rgba(55,190,118,0.95)' : 'rgba(55,190,118,0.2)'}
+                strokeWidth={isActive ? 1.5 : 1}
+                strokeDasharray={isActive ? '0' : '3 4'}
                 opacity={opacity}
-                style={{ transition: 'opacity 0.3s ease' }}
+                style={{ transition: 'opacity 0.3s ease, stroke 0.3s ease' }}
               />
-              {/* Data flow dot */}
+              {/* Data flow dots */}
               {isActive && (
-                <circle r="2.5" fill="#19E56B">
-                  <animateMotion
-                    dur="2s"
-                    repeatCount="indefinite"
-                    path={`M${x1},${y1} L${x2},${y2}`}
-                  />
-                </circle>
+                <>
+                  <circle r="3" fill="#37BE76" style={{ filter: 'drop-shadow(0 0 4px #37BE76)' }}>
+                    <animateMotion
+                      dur="1.6s"
+                      repeatCount="indefinite"
+                      path={`M${x1},${y1} L${x2},${y2}`}
+                    />
+                  </circle>
+                  <circle r="2" fill="#A0E4BC" opacity="0.8">
+                    <animateMotion
+                      dur="1.6s"
+                      begin="0.5s"
+                      repeatCount="indefinite"
+                      path={`M${x1},${y1} L${x2},${y2}`}
+                    />
+                  </circle>
+                </>
               )}
             </g>
           );
         })}
       </svg>
 
-      {/* Central core */}
-      <motion.div
+      {/* Central core — wrapper keeps translate centering; scale lives on inner motion */}
+      <div
+        className="absolute z-20"
         style={{
-          position: 'absolute',
           left: `${center.x}%`,
           top: `${center.y}%`,
           transform: 'translate(-50%, -50%)',
-          scale: coreScale,
         }}
-        className="z-20"
       >
-        <SystemCore />
-      </motion.div>
+        <motion.div style={{ scale: coreScale }}>
+          <SystemCore isHighlighted={activeNode !== null} />
+        </motion.div>
+      </div>
 
       {/* Nodes positioned absolutely */}
       {nodes.map((node, i) => (
-        <motion.div
+        <div
           key={node.id}
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.4, delay: 0.6 + i * 0.12 }}
+          className="absolute z-30"
           style={{
-            position: 'absolute',
             left: `${node.x}%`,
             top: `${node.y}%`,
             transform: 'translate(-50%, -50%)',
           }}
-          className="z-30"
         >
-          <NodeCard
-            node={node}
-            isActive={activeNode === node.id}
-            onHover={() => setActiveNode(node.id)}
-            onLeave={() => setActiveNode(null)}
-          />
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.4, delay: 0.6 + i * 0.12 }}
+          >
+            <NodeCard
+              node={node}
+              isActive={activeNode === node.id}
+              onHover={() => setActiveNode(node.id)}
+              onLeave={() => setActiveNode(null)}
+            />
+          </motion.div>
+        </div>
       ))}
     </div>
   );
@@ -291,30 +315,64 @@ function DesktopDiagram({
 
 /* ============== System core ============== */
 
-function SystemCore() {
+function SystemCore({ isHighlighted = false }: { isHighlighted?: boolean }) {
   return (
     <div className="relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center">
+      {/* Selection halo */}
+      <motion.div
+        animate={{
+          opacity: isHighlighted ? 1 : 0.35,
+          scale: isHighlighted ? 1.08 : 1,
+        }}
+        transition={{ duration: 0.35 }}
+        className="absolute -inset-3 rounded-full bg-neon-primary/10 blur-2xl pointer-events-none"
+      />
+
       {/* Outer ring */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-        className="absolute inset-0 rounded-full border border-neon-primary/15"
-        style={{ borderTopColor: 'rgba(25,229,107,0.4)' }}
+        className={`absolute inset-0 rounded-full border transition-colors duration-300 ${
+          isHighlighted ? 'border-neon-primary/40' : 'border-neon-primary/15'
+        }`}
+        style={{ borderTopColor: isHighlighted ? 'rgba(55,190,118,0.85)' : 'rgba(55,190,118,0.4)' }}
       />
+
+      {/* Pulse ring on selection */}
+      {isHighlighted && (
+        <motion.div
+          initial={{ scale: 0.85, opacity: 0.7 }}
+          animate={{ scale: 1.35, opacity: 0 }}
+          transition={{ duration: 1.2, repeat: Infinity, ease: 'easeOut' }}
+          className="absolute inset-0 rounded-full border border-neon-primary/50 pointer-events-none"
+        />
+      )}
 
       {/* Middle ring with dashes */}
       <motion.div
         animate={{ rotate: -360 }}
         transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-        className="absolute inset-3 rounded-full border border-dashed border-neon-primary/10"
+        className={`absolute inset-3 rounded-full border border-dashed transition-colors duration-300 ${
+          isHighlighted ? 'border-neon-primary/35' : 'border-neon-primary/10'
+        }`}
       />
 
       {/* Inner glow */}
-      <div className="absolute inset-6 rounded-full bg-neon-primary/[0.04] blur-xl" />
+      <div
+        className={`absolute inset-6 rounded-full blur-xl transition-all duration-300 ${
+          isHighlighted ? 'bg-neon-primary/20' : 'bg-neon-primary/[0.04]'
+        }`}
+      />
 
       {/* Core */}
-      <div className="relative w-16 h-16 rounded-full border border-neon-primary/30 bg-black-secondary/90 backdrop-blur flex flex-col items-center justify-center">
-        <Radio className="w-5 h-5 text-neon-primary" />
+      <div
+        className={`relative w-16 h-16 rounded-full border bg-black-secondary/90 backdrop-blur flex flex-col items-center justify-center transition-all duration-300 ${
+          isHighlighted
+            ? 'border-neon-primary/60 shadow-[0_0_24px_rgba(55,190,118,0.35)]'
+            : 'border-neon-primary/30'
+        }`}
+      >
+        <Radio className={`w-5 h-5 transition-colors duration-300 ${isHighlighted ? 'text-neon-light' : 'text-neon-primary'}`} />
         <span className="font-mono text-[7px] text-neon-primary/80 tracking-wider mt-0.5">NÚCLEO</span>
       </div>
 
@@ -324,14 +382,24 @@ function SystemCore() {
         transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
         className="absolute inset-0"
       >
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-neon-primary/50 shadow-[0_0_6px_rgba(25,229,107,0.4)]" />
+        <div
+          className={`absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+            isHighlighted
+              ? 'bg-neon-primary shadow-[0_0_10px_rgba(55,190,118,0.8)]'
+              : 'bg-neon-primary/50 shadow-[0_0_6px_rgba(55,190,118,0.4)]'
+          }`}
+        />
       </motion.div>
       <motion.div
         animate={{ rotate: -360 }}
         transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
         className="absolute inset-2"
       >
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-neon-primary/30" />
+        <div
+          className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${
+            isHighlighted ? 'bg-neon-primary/80' : 'bg-neon-primary/30'
+          }`}
+        />
       </motion.div>
     </div>
   );
@@ -355,13 +423,26 @@ function NodeCard({
     <motion.div
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: 1.06 }}
       className={`group relative flex items-center gap-3 px-4 py-3 rounded-xl backdrop-blur border transition-all duration-300 cursor-default ${
         isActive
-          ? 'border-neon-primary/40 bg-neon-primary/[0.06] shadow-[0_0_20px_rgba(25,229,107,0.1)]'
+          ? 'border-neon-primary/70 bg-neon-primary/[0.12] shadow-[0_0_28px_rgba(55,190,118,0.35),0_0_8px_rgba(55,190,118,0.25)_inset]'
           : 'border-white/8 bg-black-secondary/60 hover:border-neon-primary/20'
       }`}
     >
+      {/* Active glow ring */}
+      {isActive && (
+        <>
+          <span className="pointer-events-none absolute -inset-px rounded-xl border border-neon-primary/50" />
+          <motion.span
+            initial={{ opacity: 0.6, scale: 1 }}
+            animate={{ opacity: 0, scale: 1.12 }}
+            transition={{ duration: 1.1, repeat: Infinity, ease: 'easeOut' }}
+            className="pointer-events-none absolute -inset-1 rounded-xl border border-neon-primary/40"
+          />
+        </>
+      )}
+
       {/* Number */}
       <span
         className={`font-mono text-[9px] tracking-wider transition-colors ${
@@ -375,13 +456,13 @@ function NodeCard({
       <div
         className={`w-8 h-8 rounded-lg flex items-center justify-center border transition-all ${
           isActive
-            ? 'border-neon-primary/30 bg-neon-primary/5'
+            ? 'border-neon-primary/50 bg-neon-primary/15 shadow-[0_0_12px_rgba(55,190,118,0.35)]'
             : 'border-white/8 bg-white/[0.02]'
         }`}
       >
         <Icon
           className={`w-4 h-4 transition-colors ${
-            isActive ? 'text-neon-primary' : 'text-gray-text/75'
+            isActive ? 'text-neon-light' : 'text-gray-text/75'
           }`}
         />
       </div>
@@ -389,7 +470,7 @@ function NodeCard({
       {/* Label */}
       <span
         className={`font-mono text-xs tracking-wider whitespace-nowrap transition-colors ${
-          isActive ? 'text-neon-light' : 'text-gray-text'
+          isActive ? 'text-white' : 'text-gray-text'
         }`}
       >
         {node.label}
@@ -399,7 +480,7 @@ function NodeCard({
       <div
         className={`w-1.5 h-1.5 rounded-full transition-all ${
           isActive
-            ? 'bg-neon-primary shadow-[0_0_6px_rgba(25,229,107,0.5)]'
+            ? 'bg-neon-primary shadow-[0_0_10px_rgba(55,190,118,0.9)] scale-125'
             : 'bg-neon-primary/20'
         }`}
       />
@@ -428,7 +509,7 @@ function MobileDiagram({
         transition={{ duration: 0.5, delay: 0.3 }}
         className="mb-6"
       >
-        <SystemCore />
+        <SystemCore isHighlighted={activeNode !== null} />
       </motion.div>
 
       {/* Vertical connector */}
@@ -477,7 +558,7 @@ function MobileDiagram({
                 </motion.div>
               </div>
               <div className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 transition-all ${
-                isActive ? 'bg-neon-primary shadow-[0_0_6px_rgba(25,229,107,0.5)]' : 'bg-neon-primary/20'
+                isActive ? 'bg-neon-primary shadow-[0_0_6px_rgba(55,190,118,0.5)]' : 'bg-neon-primary/20'
               }`} />
             </motion.div>
           );

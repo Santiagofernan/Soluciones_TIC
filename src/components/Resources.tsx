@@ -36,7 +36,7 @@ export default function Resources() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
-              className="group relative flex min-h-[290px] flex-col overflow-hidden rounded-2xl glass-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-neon-primary/35 hover:shadow-[0_14px_42px_rgba(25,229,107,0.10)] sm:min-h-[310px] sm:p-8"
+              className="group relative flex min-h-[290px] flex-col overflow-hidden rounded-2xl glass-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-neon-primary/35 hover:shadow-[0_14px_42px_rgba(55,190,118,0.10)] sm:min-h-[310px] sm:p-8"
             >
               <div className="flex items-start justify-between gap-4">
                 <span className="font-mono text-2xl font-semibold tracking-wider text-neon-primary/80">

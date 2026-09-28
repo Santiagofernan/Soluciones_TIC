@@ -27,6 +27,7 @@ export interface Project {
   name: string;
   description: string;
   technologies: string[];
+  impact?: { value?: number; label: string };
 }
 
 export interface Skill {
@@ -119,6 +120,7 @@ export const profile: Profile = {
       description:
         'Aplicación con 3.500 muestras de asociados para apoyar la mejora continua del proceso de calidad en COOCENTRAL.',
       technologies: [],
+      impact: { value: 3500, label: 'Muestras de asociados' },
     },
     {
       id: '02',
@@ -126,6 +128,7 @@ export const profile: Profile = {
       description:
         'Adopción de herramientas digitales para caracterizar a 5.000 productores del departamento del Huila.',
       technologies: ['KoboToolbox', 'Power BI'],
+      impact: { value: 5000, label: 'Productores caracterizados' },
     },
     {
       id: '03',
@@ -133,6 +136,7 @@ export const profile: Profile = {
       description:
         'Liderazgo de un equipo que desarrolló una solución integral para apoyar la gestión sostenible del paisaje cafetero.',
       technologies: [],
+      impact: { label: 'Liderazgo de equipo' },
     },
   ],
   skills: [

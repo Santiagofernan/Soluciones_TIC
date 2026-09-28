@@ -8,8 +8,8 @@
   --color-black-primary: #050706;
   --color-black-secondary: #0B100D;
   --color-black-surface: #111814;
-  --color-neon-primary: #19E56B;
-  --color-neon-light: #8AFFB5;
+  --color-neon-primary: #37BE76;
+  --color-neon-light: #A0E4BC;
   --color-gray-text: #B2BDB6;
 }
 
@@ -32,7 +32,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #19E56B;
+  background: #37BE76;
 }
 
 html {
@@ -61,45 +61,73 @@ body {
 }
 
 ::selection {
-  background: rgba(25, 229, 107, 0.25);
-  color: #8AFFB5;
+  background: rgba(55, 190, 118, 0.25);
+  color: #A0E4BC;
 }
 
 @layer components {
   .tech-grid-bg {
     background-image:
-      linear-gradient(rgba(25, 229, 107, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(25, 229, 107, 0.04) 1px, transparent 1px);
+      linear-gradient(rgba(55, 190, 118, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(55, 190, 118, 0.04) 1px, transparent 1px);
     background-size: 48px 48px;
   }
 
   .tech-grid-fine {
     background-image:
-      linear-gradient(rgba(25, 229, 107, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(25, 229, 107, 0.03) 1px, transparent 1px);
+      linear-gradient(rgba(55, 190, 118, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(55, 190, 118, 0.03) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 
   .glass-card {
     background: rgba(17, 24, 20, 0.6);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(25, 229, 107, 0.08);
+    border: 1px solid rgba(55, 190, 118, 0.08);
   }
 
   .neon-text {
-    color: #19E56B;
-    text-shadow: 0 0 20px rgba(25, 229, 107, 0.35);
+    color: #37BE76;
+    text-shadow: 0 0 20px rgba(55, 190, 118, 0.35);
   }
 
   .neon-border {
-    border-color: rgba(25, 229, 107, 0.3);
-    box-shadow: 0 0 20px rgba(25, 229, 107, 0.1), inset 0 0 20px rgba(25, 229, 107, 0.03);
+    border-color: rgba(55, 190, 118, 0.3);
+    box-shadow: 0 0 20px rgba(55, 190, 118, 0.1), inset 0 0 20px rgba(55, 190, 118, 0.03);
   }
 
   .section-padding {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
+
+  .brand-shimmer {
+    background: linear-gradient(110deg, #37BE76 0%, #37BE76 38%, #DDF3E6 50%, #37BE76 62%, #37BE76 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 10px rgba(55, 190, 118, 0.35));
+    animation: brand-shimmer 4.5s ease-in-out infinite;
+  }
+
+  .brand-ring {
+    background: conic-gradient(from 0deg, transparent 0deg, #37BE76 80deg, transparent 160deg, #A0E4BC 260deg, transparent 360deg);
+    animation: brand-spin 6s linear infinite;
+  }
+
+  .brand-ring-fast {
+    animation-duration: 1.4s;
+  }
+}
+
+@keyframes brand-shimmer {
+  0%, 20% { background-position: 150% 0; }
+  60%, 100% { background-position: -50% 0; }
+}
+
+@keyframes brand-spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {

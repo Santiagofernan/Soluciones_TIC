@@ -117,13 +117,13 @@ export default function Hero() {
                 >
                   <a
                     href="#contacto"
-                    className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-medium text-black-primary bg-neon-primary rounded-xl hover:bg-neon-light transition-all duration-200 hover:shadow-[0_0_24px_rgba(25,229,107,0.35)]"
+                    className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-medium text-black-primary bg-neon-primary rounded-xl hover:bg-neon-light transition-all duration-200 hover:shadow-[0_0_24px_rgba(55,190,118,0.35)]"
                   >
                     Solicitar diagnóstico
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                   </a>
                   <a
-                    href="#soluciones"
+                    href="#servicios"
                     className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-medium text-white border border-white/12 rounded-xl hover:border-neon-primary/30 hover:text-neon-light transition-all duration-200"
                   >
                     Conocer soluciones
@@ -173,7 +173,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 1.2 }}
               className="flex items-center gap-2.5"
             >
-              <span className="w-2 h-2 rounded-full bg-neon-primary shadow-[0_0_8px_rgba(25,229,107,0.5)] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-neon-primary shadow-[0_0_8px_rgba(55,190,118,0.5)] animate-pulse" />
               <span className="font-mono text-[10px] text-gray-text/75 tracking-wider">ESTADO DEL SISTEMA</span>
               <span className="font-mono text-[10px] text-neon-primary tracking-wider">OPERATIVO</span>
             </motion.div>
@@ -214,7 +214,7 @@ function InfraFlow() {
       <div className="relative">
         {/* SVG connection line with data flow */}
         <svg className="absolute left-[19px] top-0 bottom-0 w-px h-full pointer-events-none" preserveAspectRatio="none">
-          <line x1="0" y1="0" x2="0" y2="100%" stroke="rgba(25,229,107,0.15)" strokeWidth="1" strokeDasharray="3 5" />
+          <line x1="0" y1="0" x2="0" y2="100%" stroke="rgba(55,190,118,0.15)" strokeWidth="1" strokeDasharray="3 5" />
         </svg>
 
         {/* Animated data flow dots */}
@@ -266,7 +266,7 @@ function InfraFlow() {
               </div>
 
               {/* Status dot */}
-              <div className="w-1.5 h-1.5 rounded-full bg-neon-primary/30 group-hover:bg-neon-primary group-hover:shadow-[0_0_6px_rgba(25,229,107,0.5)] transition-all" />
+              <div className="w-1.5 h-1.5 rounded-full bg-neon-primary/30 group-hover:bg-neon-primary group-hover:shadow-[0_0_6px_rgba(55,190,118,0.5)] transition-all" />
             </motion.div>
           ))}
         </div>

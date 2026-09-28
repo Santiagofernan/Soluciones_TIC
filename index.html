@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#050706" />
     <title>Alsoft-Cloud-Ciberseguridad e Infraestructura para Empresas</title>
     <meta name="description" content="Soluciones de infraestructura TI, ciberseguridad, redes, seguridad electrónica, desarrollo de software y consultoría para empresas." />
     <meta property="og:type" content="website" />
@@ -12,9 +13,63 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Alsoft-Cloud-Ciberseguridad e Infraestructura para Empresas" />
     <meta name="twitter:description" content="Soluciones de infraestructura TI, ciberseguridad, redes, seguridad electrónica, desarrollo de software y consultoría para empresas." />
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
+    <style>
+      html, body { margin: 0; background: #050706; }
+      #app-preloader {
+        position: fixed; inset: 0; z-index: 9999;
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+        background: #050706;
+        background-image:
+          radial-gradient(circle at 50% 50%, rgba(55, 190, 118, 0.10), transparent 40%),
+          linear-gradient(rgba(55, 190, 118, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(55, 190, 118, 0.04) 1px, transparent 1px);
+        background-size: 100% 100%, 48px 48px, 48px 48px;
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        transition: opacity 0.45s ease, visibility 0.45s ease;
+      }
+      #app-preloader.is-hidden { opacity: 0; visibility: hidden; }
+      .pl-mark { position: relative; width: 64px; height: 64px; }
+      .pl-ring { position: absolute; inset: -3px; border-radius: 18px; overflow: hidden; }
+      .pl-ring::before {
+        content: ''; position: absolute; inset: -50%;
+        background: conic-gradient(from 0deg, transparent 0deg, #37BE76 80deg, transparent 160deg, #A0E4BC 260deg, transparent 360deg);
+        animation: pl-spin 1.4s linear infinite;
+      }
+      .pl-core {
+        position: relative; width: 100%; height: 100%; box-sizing: border-box;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 16px; border: 1px solid rgba(55, 190, 118, 0.2); background: #0B100D;
+      }
+      .pl-name { margin: 0; color: #fff; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+      .pl-name span { color: #37BE76; }
+      .pl-bar { width: 160px; height: 2px; border-radius: 2px; overflow: hidden; background: rgba(55, 190, 118, 0.15); }
+      .pl-bar::after {
+        content: ''; display: block; width: 40%; height: 100%;
+        background: linear-gradient(90deg, transparent, #37BE76, #A0E4BC);
+        animation: pl-load 1.1s ease-in-out infinite;
+      }
+      .pl-caption { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: rgba(178, 189, 182, 0.7); }
+      @keyframes pl-spin { to { transform: rotate(360deg); } }
+      @keyframes pl-load { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+      @media (prefers-reduced-motion: reduce) {
+        .pl-ring::before, .pl-bar::after { animation: none; }
+      }
+    </style>
   </head>
   <body>
+    <div id="app-preloader" role="status" aria-label="Cargando">
+      <div class="pl-mark">
+        <div class="pl-ring"></div>
+        <div class="pl-core">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#37BE76" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+          </svg>
+        </div>
+      </div>
+      <p class="pl-name">Alsoft-<span>Cloud</span></p>
+      <div class="pl-bar"></div>
+      <span class="pl-caption">CARGANDO</span>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
