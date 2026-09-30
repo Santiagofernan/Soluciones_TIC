@@ -22,9 +22,9 @@ import { profile } from '@/data/profile';
 
 const YEARS_OF_EXPERIENCE = 12;
 
-const stats = [
+const stats: { value: number; suffix?: string; label: string }[] = [
   { value: YEARS_OF_EXPERIENCE, label: 'Años de experiencia' },
-  { value: 5000, label: 'Productores impactados' },
+  { value: 100, suffix: '%', label: 'Compromiso profesional' },
   { value: profile.certifications.length, label: 'Certificaciones Cisco' },
   { value: profile.projects.length, label: 'Proyectos destacados' },
 ];
@@ -170,6 +170,7 @@ function ProfileHero() {
               <SpotlightCard className="flex h-full flex-col justify-between p-5">
                 <p className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                   <CountUp to={stat.value} />
+                  {stat.suffix && <span className="text-neon-primary">{stat.suffix}</span>}
                 </p>
                 <p className="mt-2 text-xs leading-snug text-gray-text">{stat.label}</p>
               </SpotlightCard>
@@ -476,13 +477,7 @@ function FeaturedProjects() {
 
               {project.impact && (
                 <div className="mt-6 border-b border-white/8 pb-5">
-                  {project.impact.value !== undefined ? (
-                    <p className="text-4xl font-bold leading-none tracking-tight text-white">
-                      <CountUp to={project.impact.value} />
-                    </p>
-                  ) : (
-                    <Lightbulb className="h-9 w-9 text-neon-primary" aria-hidden="true" />
-                  )}
+                  <p className="text-3xl font-bold leading-none tracking-tight text-white">{project.impact.highlight}</p>
                   <p className="mt-2 font-mono text-[10px] tracking-wider text-gray-text/80 uppercase">{project.impact.label}</p>
                 </div>
               )}

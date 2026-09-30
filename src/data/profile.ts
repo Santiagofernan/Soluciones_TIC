@@ -27,7 +27,7 @@ export interface Project {
   name: string;
   description: string;
   technologies: string[];
-  impact?: { value?: number; label: string };
+  impact?: { highlight: string; label: string };
 }
 
 export interface Skill {
@@ -115,17 +115,17 @@ export const profile: Profile = {
       id: '01',
       name: 'A-catar',
       description:
-        'Aplicación con 3.500 muestras de asociados para apoyar la mejora continua del proceso de calidad en COOCENTRAL.',
+        'Aplicación para registrar y analizar las muestras de los asociados, apoyando la mejora continua del proceso de calidad en COOCENTRAL.',
       technologies: [],
-      impact: { value: 3500, label: 'Muestras de asociados' },
+      impact: { highlight: 'Calidad', label: 'Mejora continua del proceso' },
     },
     {
       id: '02',
       name: 'Caracterización de productores de café y cacao',
       description:
-        'Adopción de herramientas digitales para caracterizar a 5.000 productores del departamento del Huila.',
+        'Adopción de herramientas digitales para caracterizar a los productores de café y cacao del departamento del Huila.',
       technologies: ['KoboToolbox', 'Power BI'],
-      impact: { value: 5000, label: 'Productores caracterizados' },
+      impact: { highlight: 'Agro digital', label: 'Datos para la toma de decisiones' },
     },
     {
       id: '03',
@@ -133,7 +133,7 @@ export const profile: Profile = {
       description:
         'Liderazgo de un equipo que desarrolló una solución integral para apoyar la gestión sostenible del paisaje cafetero.',
       technologies: [],
-      impact: { label: 'Liderazgo de equipo' },
+      impact: { highlight: 'Liderazgo', label: 'Equipo de innovación' },
     },
   ],
   skills: [
