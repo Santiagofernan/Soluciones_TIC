@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 import { resources } from '@/data/resources';
 
 function formatDate(dateStr: string): string {
@@ -32,7 +31,6 @@ export default function Resources() {
           {resources.map((resource, i) => (
             <motion.article
               key={resource.id}
-              id={`recurso-${resource.slug}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
@@ -57,15 +55,8 @@ export default function Resources() {
                 <p className="mt-4 max-w-xl text-sm leading-relaxed text-gray-text">{resource.description}</p>
               </div>
 
-              <div className="mt-7 flex items-center justify-between gap-4 border-t border-white/10 pt-4">
+              <div className="mt-7 border-t border-white/10 pt-4">
                 <span className="font-mono text-[10px] tracking-wider text-gray-text/80">{formatDate(resource.date)}</span>
-                <a
-                  href={`#recurso-${resource.slug}`}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-neon-primary transition-colors hover:text-neon-light"
-                >
-                  Leer artículo
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </a>
               </div>
 
               <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-neon-primary to-transparent transition-all duration-500 group-hover:w-full" />
